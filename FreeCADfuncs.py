@@ -14,15 +14,6 @@ from PySide import QtGui
 import math
 import collections
 
-lines = dict()
-loops = []
-
-PI = math.pi
-PI2 = math.pi * 2.0
-PIB2 = math.pi / 2.0
-
-import FreeCADenvironment
-
 #from circle import *
 #from constraints import *
 #import patterns
@@ -41,16 +32,18 @@ class circle:
         # sk().addGeometry(Part.Circle(pos,App.Vector(0, 0, 1), rad),construction=construction)
         self.id = sk().addGeometry(Part.Circle(),construction)
         conRad(self.rad,self.id)
-        print "conrad1"
         # if pos is not None:
 
     def conPoint(self,pnt):
         sk().addConstraint(Sketcher.Constraint('Coincident',self.id,3,pnt.id,1))
 
+    def conDis(self,obj,dis):
+        conDis(dis,obj)
+
 def conRad(rad, obj=None):
     if obj is None:
         obj = last()
-    print "conrad"
+
     sk().addConstraint(Sketcher.Constraint('Radius', obj, rad))
 
 def a2v(angle):
@@ -315,11 +308,11 @@ def loop(num,distances = None,angles = None, closed=True, construction=False):
     return loops[-1]
 
 
-def conDis(dis, obj=None):
-    if obj is None:
-        obj = last()
-    sk().addConstraint(Sketcher.Constraint('Distance', obj, dis))
-
+def conDis(dis, obj):
+    if isinstance(obj,pt):
+        sk().addConstraint(Sketcher.Constraint('Distance', obj, dis))
+    elif isinstance(obj,ln):
+        sk().addConstraint(Sketcher.Constraint('Distance', obj, dis))
 
 def conDisAxis(dis, axis1, axis2, atMidPoints=False):
     ln = line(construction=True)
