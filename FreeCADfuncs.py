@@ -1,7 +1,8 @@
 from FreeCADenvironment import *
 import Sketcher
 from circle import *
-
+#from constraints import *
+import patterns
 
 def clearConsole():
     mw = Gui.getMainWindow()
@@ -9,7 +10,6 @@ def clearConsole():
     c.clear()
     r = mw.findChild(QtGui.QTextEdit, "Report view")
     r.clear()
-
 
 def clearDoc():
     for i in range(App.ActiveDocument.Sketch.ConstraintCount - 1, -1, -1):
@@ -229,9 +229,6 @@ def loop(num,distances = None,angles = None, closed=True, construction=False):
     return loops[-1]
 
 
-
-
-
 def conDis(dis, obj=None):
     if obj is None:
         obj = last()
@@ -306,12 +303,7 @@ def conPara(line1, line2):
     sk().addConstraint(Sketcher.Constraint('Parallel', line1, line2))
 
 
-def conSym(obj1, obj1Side, obj2, obj2Side, symAbout, symAboutSide=None):
-    sk().addConstraint(Sketcher.Constraint('Symmetric', obj1, obj1Side, obj2, obj2Side, symAbout, symAboutSide))
 
-
-def conSymAxis(obj1, obj1Side, obj2, obj2Side, symAbout):
-    sk().addConstraint(Sketcher.Constraint('Symmetric', obj1, obj1Side, obj2, obj2Side, symAbout))
 
 
 def fillet(rad, obj1=None, obj2=None):
