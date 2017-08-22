@@ -1,8 +1,106 @@
-from FreeCADenvironment import *
+import sys
+sys.path.append('C:\Program Files\FreeCAD 0.16')
+sys.path.append('D:\Dropbox\src\FreeCAD\conCAD')
+import FreeCAD
+
+App = FreeCAD
+import FreeCADGui
+Gui = FreeCADGui
 import Sketcher
-from circle import *
+import Draft, Part
+from FreeCAD import Gui
+import random
+from PySide import QtGui
+import math
+import collections
+
+lines = dict()
+loops = []
+
+PI = math.pi
+PI2 = math.pi * 2.0
+PIB2 = math.pi / 2.0
+
+import FreeCADenvironment
+
+#from circle import *
 #from constraints import *
-import patterns
+#import patterns
+
+lines = dict()
+loops = []
+
+PI = math.pi
+PI2 = math.pi * 2.0
+PIB2 = math.pi / 2.0
+
+class circle:
+    def __init__(self,rad,pos=None,construction=False):
+        self.rad = rad
+        self.pos = pos or pt()
+        # sk().addGeometry(Part.Circle(pos,App.Vector(0, 0, 1), rad),construction=construction)
+        self.id = sk().addGeometry(Part.Circle(),construction)
+        conRad(self.rad,self.id)
+        print "conrad1"
+        # if pos is not None:
+
+    def conPoint(self,pnt):
+        sk().addConstraint(Sketcher.Constraint('Coincident',self.id,3,pnt.id,1))
+
+def conRad(rad, obj=None):
+    if obj is None:
+        obj = last()
+    print "conrad"
+    sk().addConstraint(Sketcher.Constraint('Radius', obj, rad))
+
+def a2v(angle):
+    return v(math.cos(angle), math.sin(angle))
+
+def lerp(value, inputLow, inputHigh, outputLow, outputHigh):
+    return outputLow + ((value - inputLow) / (inputHigh - inputLow)) * (outputHigh - outputLow)
+
+def clearConsole():
+    mw = Gui.getMainWindow()
+    c = mw.findChild(QtGui.QPlainTextEdit, "Python console")
+    c.clear()
+    r = mw.findChild(QtGui.QTextEdit, "Report view")
+    r.clear()
+
+def delGeometry(index):
+    App.ActiveDocument.Sketch.delGeometry(index)
+
+def clearAll():
+    doc = App.ActiveDocument
+    for obj in doc.Objects:
+        doc.removeObject(obj.Label)
+
+def randVec(instances=1):
+    if instances > 1:
+        output = []
+        for i in range(instances):
+            output.append(v(random.random(), random.random()))
+        return output
+    return v(random.random(), random.random())
+
+def v(x=0, y=0):
+    return App.Vector(x, y, 0)
+
+def last():
+    return App.ActiveDocument.Sketch.GeometryCount - 1
+
+def sk():
+    return App.ActiveDocument.Sketch
+
+def init():
+    App.setActiveDocument("Unnamed")
+    App.ActiveDocument = App.getDocument("Unnamed")
+    Gui.ActiveDocument = Gui.getDocument("Unnamed")
+    Gui.activateWorkbench("SketcherWorkbench")
+    App.activeDocument().addObject('Sketcher::SketchObject', 'Sketch')
+    App.activeDocument().Sketch.Placement = App.Placement(App.Vector(0.000000, 0.000000, 0.000000),
+                                                           App.Rotation(0.000000, 0.000000, 0.000000, 1.000000))
+    Gui.activeDocument().activeView().setCamera('#Inventor V2.1 ascii \n OrthographicCamera {\n viewportMapping ADJUST_CAMERA \n position 0 0 87 \n orientation 0 0 1  0 \n nearDistance -112.88701 \n farDistance 287.28702 \n aspectRatio 1 \n focalDistance 87 \n height 143.52005 }')
+    Gui.activeDocument().setEdit('Sketch')
 
 def clearConsole():
     mw = Gui.getMainWindow()
@@ -102,18 +200,6 @@ def point(coords=None):
     if coords is None:
         coords = v()
     return sk().addGeometry(Part.Point(coords))
-
-
-class circle:
-    def __init__(self,rad,pos=None,construction=False):
-        self.rad = rad
-        self.pos = pos or pt()
-        # sk().addGeometry(Part.Circle(pos,App.Vector(0, 0, 1), rad),construction=construction)
-        self.id = sk().addGeometry(Part.Circle(),construction)
-        # if pos is not None:
-
-    def conPoint(self,pnt):
-        sk().addConstraint(Sketcher.Constraint('Coincident',self.id,3,pnt.id,1))
 
 class ln:
     def __init__(self, start=None, end=None, dis=None, construction=False,defineOrigin = False):
@@ -293,18 +379,21 @@ def conVert(obj1=None, obj2=None):
 
 
 
-def conRad(rad, obj=None):
-    if obj is None:
-        obj = last()
-    sk().addConstraint(Sketcher.Constraint('Radius', obj, rad))
+
 
 
 def conPara(line1, line2):
     sk().addConstraint(Sketcher.Constraint('Parallel', line1, line2))
 
 
+def conSym(obj1, obj1Side, obj2, obj2Side, symAbout, symAboutSide=None):
+    sk().addConstraint(Sketcher.Constraint('Symmetric', obj1, obj1Side, obj2, obj2Side, symAbout, symAboutSide))
 
+def conSymAxis(obj1, obj1Side, obj2, obj2Side, symAbout):
+    sk().addConstraint(Sketcher.Constraint('Symmetric', obj1, obj1Side, obj2, obj2Side, symAbout))
 
+def symmetric(objects,axis):
+    return 1
 
 def fillet(rad, obj1=None, obj2=None):
     if obj1 is None:
