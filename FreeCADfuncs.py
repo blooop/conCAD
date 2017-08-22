@@ -25,20 +25,73 @@ PI = math.pi
 PI2 = math.pi * 2.0
 PIB2 = math.pi / 2.0
 
+
+def pattern(obj,vector,instances):
+    output = []
+    construction = []
+    baseConstruction = ln(dis =vecLen(vector))
+
+    # ln1 = ln(dis=2)
+    # ln1.start.conPoint(origin)
+    # ln1.conAng(horAxis, 0.3)
+    # for obj in objList:
+    if isinstance(obj,circle):
+        obj.conPoint(baseConstruction.start)
+        print v2ad(vector)
+        baseConstruction.conAng(horAxis,v2ad(vector))
+
+        # for i in range(instances):
+        #     output.append(circle())
+        #     construction.append(ln())
+        # output[-1]
+
 class circle:
-    def __init__(self,rad,pos=None,construction=False):
+    def __init__(self,rad = None,pos=None,construction=False):
         self.rad = rad
         self.pos = pos or pt()
         # sk().addGeometry(Part.Circle(pos,App.Vector(0, 0, 1), rad),construction=construction)
         self.id = sk().addGeometry(Part.Circle(),construction)
-        conRad(self.rad,self.id)
+        self.center = pt()
+        if self.rad is not None:
+            conRad(self.rad,self.id)
         # if pos is not None:
 
     def conPoint(self,pnt):
         sk().addConstraint(Sketcher.Constraint('Coincident',self.id,3,pnt.id,1))
 
     def conDis(self,obj,dis):
-        conDis(dis,obj)
+        if isinstance(obj, pt):
+            sk().addConstraint(Sketcher.Constraint('Distance', obj.id, dis))
+        elif isinstance(obj, ln):
+            sk().addConstraint(Sketcher.Constraint('Distance',self.id,3,obj.id, dis))
+
+    def tangent(self,obj):
+        print "s"
+        if isinstance(obj,ln):
+            sk().addConstraint(Sketcher.Constraint('Tangent', obj.id, self.id))
+        else:
+            raise Exception("tangent must be a curve")
+
+    def conEdgeDis(self,obj,dis):
+
+        conDis(obj,self.rad+dis)
+        # pt1 = pt()
+        # pt2 = pt(v(1,1))
+
+        # sk().addConstraint(Sketcher.Constraint('Coincident',self.id,3,pt1.id, 1))
+        # sk().addConstraint(Sketcher.Constraint('PointOnObject',pt2.id,1, self.id))
+
+        # ln1 = ln(pt1,pt2,construction=True)
+        # ln1.start.conPoint(self.id)
+        # sk().addConstraint(Sketcher.Constraint('Coincident', ln1.id,1, self.id,3))
+        # sk().addConstraint(Sketcher.Constraint('PointOnObject', ln1.id,2, self.id))
+
+
+        # ln1.end.
+
+        # addConstraint(Sketcher.Constraint('PointOnObject', 14, 2, 11))
+
+
 
 def conRad(rad, obj=None):
     if obj is None:
@@ -48,6 +101,21 @@ def conRad(rad, obj=None):
 
 def a2v(angle):
     return v(math.cos(angle), math.sin(angle))
+
+def v2a(vec):
+    return math.atan2(vec[1],vec[0])
+
+deg2rad = 180.0/math.pi
+
+def a2vd(angle):
+    angle *= deg2rad
+    return v(math.cos(angle), math.sin(angle))
+
+def v2ad(vec):
+    return math.atan2(vec[1],vec[0])*deg2rad
+
+def vecLen(vec):
+    return math.sqrt(vec[0]*vec[0]+vec[1]*vec[1])
 
 def lerp(value, inputLow, inputHigh, outputLow, outputHigh):
     return outputLow + ((value - inputLow) / (inputHigh - inputLow)) * (outputHigh - outputLow)
@@ -137,18 +205,6 @@ def randVec(instances=1):
 def v(x=0, y=0):
     return App.Vector(x, y, 0)
 
-def defineOriginPt():
-    origin = pt(defineOrigin = True)
-    origin.id = -1
-
-    horAxis = ln(defineOrigin=True)
-    horAxis.id = -1
-
-    vertAxis = ln(defineOrigin=True)
-    vertAxis.id = -2
-
-    return origin,horAxis,vertAxis
-
 class pt:
     def __init__(self, pos=None,defineOrigin = False):
         if not defineOrigin:
@@ -189,6 +245,8 @@ def defineOriginPt():
     return origin,horAxis,vertAxis
 
 
+
+
 def point(coords=None):
     if coords is None:
         coords = v()
@@ -203,7 +261,7 @@ class ln:
             self._midpoint = None
 
             if dis is not None:
-                self.setLen(dis)
+                self.conLen(dis)
 
             sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
             sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
@@ -230,6 +288,7 @@ class ln:
         sk().addConstraint(Sketcher.Constraint('Vertical', self.id))
 
     def conAng(self, line1,angle):
+
         tmp = sk().addConstraint(Sketcher.Constraint('Angle',self.id,1,line1.id,1,angle))
         sk().setDatum(tmp, App.Units.Quantity(str(angle)+' deg'))
 
@@ -308,11 +367,14 @@ def loop(num,distances = None,angles = None, closed=True, construction=False):
     return loops[-1]
 
 
-def conDis(dis, obj):
-    if isinstance(obj,pt):
-        sk().addConstraint(Sketcher.Constraint('Distance', obj, dis))
-    elif isinstance(obj,ln):
-        sk().addConstraint(Sketcher.Constraint('Distance', obj, dis))
+def conDis(dis, obj=None):
+    sk().addConstraint(Sketcher.Constraint('Distance', obj, dis))
+
+# def constrainDistance(dis, obj1,obj2):
+#     if isinstance(obj,pt):
+#         sk().addConstraint(Sketcher.Constraint('Distance', obj.id, dis))
+#     elif isinstance(obj,ln):
+#         sk().addConstraint(Sketcher.Constraint('Distance', obj.id, dis))
 
 def conDisAxis(dis, axis1, axis2, atMidPoints=False):
     ln = line(construction=True)
@@ -475,3 +537,7 @@ def trapOld():
     conDis(leftRad, left)
     conDis(rightRad, right)
     conDisAxis(linkLen, right, left, True)
+
+
+
+[origin,horAxis,vertAxis] = defineOriginPt()
