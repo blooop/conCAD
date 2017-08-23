@@ -6,9 +6,9 @@ from libfunc.mathfuncs import *
 from sketchManager import *
 from v2d import *
 from constraints import *
-from pt import *
-from ln import *
-from circle import *
+from pt import pt
+from ln import ln
+from circle import circle
 
 #from constraints import *
 #import patterns

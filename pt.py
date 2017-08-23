@@ -1,6 +1,6 @@
 from v2d import *
-from ln import *
-from circle import *
+#from ln import ln
+#from circle import circle
 from constraints import *
 
 

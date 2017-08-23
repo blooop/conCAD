@@ -1,6 +1,6 @@
 from sketchManager import *
 from constraints import *
-from circle import *
+from circle import circle
 from pt import *
 import Sketcher
 

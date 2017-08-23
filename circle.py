@@ -1,6 +1,7 @@
 from sketchManager import *
 from constraints import *
 from pt import *
+from ln import *
 import Part
 import Sketcher
 
