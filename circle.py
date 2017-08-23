@@ -2,6 +2,7 @@ from sketchManager import *
 from constraints import *
 from pt import *
 import Part
+import Sketcher
 
 class circle:
     def __init__(self,rad = None,pos=None,construction=False):
