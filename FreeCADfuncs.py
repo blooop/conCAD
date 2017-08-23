@@ -13,7 +13,7 @@ import Sketcher
 import Draft, Part
 from FreeCAD import Gui
 import  random
-from PySide import QtGui
+
 import math
 import collections
 
@@ -156,29 +156,6 @@ def sk():
     return App.ActiveDocument.Sketch
 
 
-def clearConsole():
-    mw = Gui.getMainWindow()
-    c = mw.findChild(QtGui.QPlainTextEdit, "Python console")
-    c.clear()
-    r = mw.findChild(QtGui.QTextEdit, "Report view")
-    r.clear()
-
-def clearDoc():
-    for i in range(App.ActiveDocument.Sketch.ConstraintCount - 1, -1, -1):
-        App.ActiveDocument.Sketch.delConstraint(i)
-
-    for i in range(App.ActiveDocument.Sketch.GeometryCount - 1, -1, -1):
-        App.ActiveDocument.Sketch.delGeometry(i)
-
-
-def delGeometry(index):
-    App.ActiveDocument.Sketch.delGeometry(index)
-
-
-def clearAll():
-    doc = App.ActiveDocument
-    for obj in doc.Objects:
-        doc.removeObject(obj.Label)
 
 
 def CreateCircleSketch(SketchFeature, center, radius):
