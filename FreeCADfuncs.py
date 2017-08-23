@@ -13,7 +13,7 @@ import random
 from PySide import QtGui
 import math
 import collections
-
+from libfunc.mathfuncs import *
 #from circle import *
 #from constraints import *
 #import patterns
@@ -21,10 +21,12 @@ import collections
 lines = dict()
 loops = []
 
-PI = math.pi
-PI2 = math.pi * 2.0
-PIB2 = math.pi / 2.0
+def a2v(angle):
+    return v(math.cos(angle), math.sin(angle)+10)
 
+def a2vd(angle):
+    angle *= deg2rad
+    return v(math.cos(angle), math.sin(angle))
 
 def pattern(obj,vector,instances):
     output = []
@@ -105,27 +107,6 @@ def conRad(rad, obj=None):
 
     sk().addConstraint(Sketcher.Constraint('Radius', obj, rad))
 
-def a2v(angle):
-    return v(math.cos(angle), math.sin(angle))
-
-def v2a(vec):
-    return math.atan2(vec[1],vec[0])
-
-deg2rad = 180.0/math.pi
-
-def a2vd(angle):
-    angle *= deg2rad
-    return v(math.cos(angle), math.sin(angle))
-
-def v2ad(vec):
-    return math.atan2(vec[1],vec[0])*deg2rad
-
-def vecLen(vec):
-    return math.sqrt(vec[0]*vec[0]+vec[1]*vec[1])
-
-def lerp(value, inputLow, inputHigh, outputLow, outputHigh):
-    return outputLow + ((value - inputLow) / (inputHigh - inputLow)) * (outputHigh - outputLow)
-
 def clearConsole():
     mw = Gui.getMainWindow()
     c = mw.findChild(QtGui.QPlainTextEdit, "Python console")
@@ -158,16 +139,15 @@ def last():
 def sk():
     return App.ActiveDocument.Sketch
 
-def init():
-    App.setActiveDocument("Unnamed")
-    App.ActiveDocument = App.getDocument("Unnamed")
-    Gui.ActiveDocument = Gui.getDocument("Unnamed")
+def createSketchIfNoneExist():
+    print App.activeDocument()
     Gui.activateWorkbench("SketcherWorkbench")
+    #if App.activeDocument() is None:
+    #App.newDocument("Unnamed")
+    App.setActiveDocument("Unnamed")
     App.activeDocument().addObject('Sketcher::SketchObject', 'Sketch')
-    App.activeDocument().Sketch.Placement = App.Placement(App.Vector(0.000000, 0.000000, 0.000000),
-                                                           App.Rotation(0.000000, 0.000000, 0.000000, 1.000000))
-    Gui.activeDocument().activeView().setCamera('#Inventor V2.1 ascii \n OrthographicCamera {\n viewportMapping ADJUST_CAMERA \n position 0 0 87 \n orientation 0 0 1  0 \n nearDistance -112.88701 \n farDistance 287.28702 \n aspectRatio 1 \n focalDistance 87 \n height 143.52005 }')
     Gui.activeDocument().setEdit('Sketch')
+    Gui.activeDocument().activeView().setCamera('#Inventor V2.1 ascii \n OrthographicCamera {\n viewportMapping ADJUST_CAMERA \n position 0 0 87 \n orientation 0 0 1  0 \n nearDistance -112.88701 \n farDistance 287.28702 \n aspectRatio 1 \n focalDistance 87 \n height 143.52005 }')
 
 def clearConsole():
     mw = Gui.getMainWindow()
