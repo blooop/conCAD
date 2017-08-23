@@ -40,3 +40,8 @@ def clearAll():
     for obj in doc.Objects:
         doc.removeObject(obj.Label)
 
+def last():
+    return App.ActiveDocument.Sketch.GeometryCount - 1
+
+def sk():
+    return App.ActiveDocument.Sketch

@@ -101,22 +101,6 @@ def conRad(rad, obj=None):
 
 
 
-def last():
-    return App.ActiveDocument.Sketch.GeometryCount - 1
-
-def sk():
-    return App.ActiveDocument.Sketch
-
-
-
-
-def CreateCircleSketch(SketchFeature, center, radius):
-    i = int(SketchFeature.GeometryCount)
-    SketchFeature.addGeometry(Part.Circle(App.Vector(*center), App.Vector(0, 0, 1), radius), False)
-    SketchFeature.addConstraint(Sketcher.Constraint('Radius', i, radius))
-
-
-
 class pt:
     def __init__(self, pos=None,defineOrigin = False):
         if not defineOrigin:
