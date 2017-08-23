@@ -10,6 +10,13 @@ def conDis(dis, obj=None):
 #     elif isinstance(obj,ln):
 #         sk().addConstraint(Sketcher.Constraint('Distance', obj.id, dis))
 
+
+def conRad(rad, obj=None):
+    if obj is None:
+        obj = last()
+
+    sk().addConstraint(Sketcher.Constraint('Radius', obj, rad))
+
 def conDisAxis(dis, axis1, axis2, atMidPoints=False):
     ln = line(construction=True)
     conDis(dis)

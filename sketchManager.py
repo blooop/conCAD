@@ -4,6 +4,8 @@ sys.path.append('C:\Program Files\FreeCAD 0.16')
 import FreeCAD
 import FreeCADGui
 from PySide import QtGui
+import Sketcher
+import Draft, Part
 
 App = FreeCAD
 Gui = FreeCADGui
