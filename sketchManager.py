@@ -4,7 +4,8 @@ sys.path.append('C:\Program Files\FreeCAD 0.16')
 import FreeCAD
 import FreeCADGui
 
-
+App = FreeCAD
+Gui = FreeCADGui
 
 def createSketchIfNoneExist():
     FreeCADGui.activateWorkbench("SketcherWorkbench")

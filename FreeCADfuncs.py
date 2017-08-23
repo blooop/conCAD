@@ -3,8 +3,8 @@ def hackyImport(file):
 
 import sys
 sys.path.append('C:\Program Files\FreeCAD 0.16')
-sys.path.append('D:\Dropbox\src\FreeCAD\conCAD')
 
+hackyImport('sketchManager.py')
 
 import FreeCAD
 
@@ -14,15 +14,13 @@ Gui = FreeCADGui
 import Sketcher
 import Draft, Part
 from FreeCAD import Gui
-import random
+import  random
 from PySide import QtGui
 import math
 import collections
 
 from libfunc.mathfuncs import *
-
-hackyImport('sketchManager.py')
-
+from sketchManager import *
 #from circle import *
 #from constraints import *
 #import patterns
@@ -30,12 +28,35 @@ hackyImport('sketchManager.py')
 lines = dict()
 loops = []
 
+def createSketchIfNoneExist():
+    FreeCADGui.activateWorkbench("SketcherWorkbench")
+    #if App.activeDocument() is None:
+    #App.newDocument("Unnamed")
+    FreeCAD.setActiveDocument("Unnamed")
+    FreeCAD.activeDocument().addObject('Sketcher::SketchObject', 'Sketch')
+    FreeCADGui.activeDocument().setEdit('Sketch')
+    FreeCADGui.activeDocument().activeView().setCamera('#Inventor V2.1 ascii \n OrthographicCamera {\n viewportMapping ADJUST_CAMERA \n position 0 0 87 \n orientation 0 0 1  0 \n nearDistance -112.88701 \n farDistance 287.28702 \n aspectRatio 1 \n focalDistance 87 \n height 143.52005 }')
+
+
+def randVec(instances=1):
+    if instances > 1:
+        output = []
+        for i in range(instances):
+            output.append(v(random.random(), random.random()))
+        return output
+    return v(random.random(), random.random())
+
+
+def v(x=0, y=0):
+    return App.Vector(x, y, 0)
+
 def a2v(angle):
     return v(math.cos(angle), math.sin(angle)+10)
 
 def a2vd(angle):
     angle *= deg2rad
     return v(math.cos(angle), math.sin(angle))
+
 
 def pattern(obj,vector,instances):
     output = []
@@ -108,8 +129,6 @@ class circle:
 
         # addConstraint(Sketcher.Constraint('PointOnObject', 14, 2, 11))
 
-
-
 def conRad(rad, obj=None):
     if obj is None:
         obj = last()
@@ -179,17 +198,7 @@ def CreateCircleSketch(SketchFeature, center, radius):
     SketchFeature.addGeometry(Part.Circle(App.Vector(*center), App.Vector(0, 0, 1), radius), False)
     SketchFeature.addConstraint(Sketcher.Constraint('Radius', i, radius))
 
-def randVec(instances=1):
-    if instances > 1:
-        output = []
-        for i in range(instances):
-            output.append(v(random.random(), random.random()))
-        return output
-    return v(random.random(), random.random())
 
-
-def v(x=0, y=0):
-    return App.Vector(x, y, 0)
 
 class pt:
     def __init__(self, pos=None,defineOrigin = False):
