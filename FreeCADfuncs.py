@@ -1,3 +1,5 @@
+#from conCAD import *
+
 import collections
 
 from libfunc.mathfuncs import *
@@ -51,17 +53,10 @@ def defineOriginPt():
 
     return origin,horAxis,vertAxis
 
-
-
-
 def point(coords=None):
     if coords is None:
         coords = v()
     return sk().addGeometry(Part.Point(coords))
-
-
-
-
 
 def polyLine(pointsList,distances=None,angles= None, closeLoop=False, construction=False):
     lineIndices = []

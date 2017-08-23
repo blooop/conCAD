@@ -1,4 +1,3 @@
-from FreeCADfuncs import *
 import collections
 
 from libfunc.mathfuncs import *

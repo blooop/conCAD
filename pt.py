@@ -3,6 +3,7 @@ from ln import *
 from circle import *
 from constraints import *
 
+
 class pt:
     def __init__(self, pos=None,defineOrigin = False):
         if not defineOrigin:
