@@ -1,8 +1,6 @@
 from libfunc.mathfuncs import *
 from sketchManager import *
 import random
-import sketchManager
-
 
 def randVec(instances=1):
     if instances > 1:

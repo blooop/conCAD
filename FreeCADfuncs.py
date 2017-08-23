@@ -1,6 +1,3 @@
-def hackyImport(file):
-    execfile('D:\Dropbox\src\FreeCAD\conCAD\\' +file)
-
 import sys
 sys.path.append('C:\Program Files\FreeCAD 0.16')
 
@@ -12,9 +9,7 @@ Gui = FreeCADGui
 import Sketcher
 import Draft, Part
 from FreeCAD import Gui
-import  random
 
-import math
 import collections
 
 from libfunc.mathfuncs import *
@@ -26,9 +21,6 @@ from v2d import *
 
 lines = dict()
 loops = []
-
-
-
 
 def pattern(obj,vector,instances):
     output = []
