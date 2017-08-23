@@ -1,0 +1,3 @@
+[submodule "libfunc"]
+	path = libfunc
+	url = git@bitbucket.org:agreggsmith/libfunc.git
