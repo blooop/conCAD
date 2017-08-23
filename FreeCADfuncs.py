@@ -99,31 +99,7 @@ def conRad(rad, obj=None):
 
     sk().addConstraint(Sketcher.Constraint('Radius', obj, rad))
 
-def clearConsole():
-    mw = Gui.getMainWindow()
-    c = mw.findChild(QtGui.QPlainTextEdit, "Python console")
-    c.clear()
-    r = mw.findChild(QtGui.QTextEdit, "Report view")
-    r.clear()
 
-def delGeometry(index):
-    App.ActiveDocument.Sketch.delGeometry(index)
-
-def clearAll():
-    doc = App.ActiveDocument
-    for obj in doc.Objects:
-        doc.removeObject(obj.Label)
-
-def randVec(instances=1):
-    if instances > 1:
-        output = []
-        for i in range(instances):
-            output.append(v(random.random(), random.random()))
-        return output
-    return v(random.random(), random.random())
-
-def v(x=0, y=0):
-    return App.Vector(x, y, 0)
 
 def last():
     return App.ActiveDocument.Sketch.GeometryCount - 1
