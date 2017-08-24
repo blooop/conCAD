@@ -8,12 +8,13 @@ from circleclass import *
 import patterns
 
 
-def applyProperty(objects,propertyItemOrList,func):
+def applyProperty(objects, propertyItemOrList, func):
     propertyItemOrList = makeSureIsList(propertyItemOrList, len(objects))
     if propertyItemOrList is not None:
         for i in range(len(objects)):
-            objects[i] = func(objects[i],propertyItemOrList[i])
+            objects[i] = func(objects[i], propertyItemOrList[i])
     return objectsf
+
 
 def fillet(rad, obj1=None, obj2=None):
     if obj1 is None:

@@ -35,7 +35,6 @@ def filletTri(sideLen):
     conDis(sideLen, 0)
 
 
-
 def antenna():
     spoke = ln(dis=2)
     rim = ln(dis=1)
@@ -47,6 +46,7 @@ def antenna():
     ln1 = rim.start.lineTo(dis=1.5)
     ln2 = rim.end.lineTo(dis=1.5)
     ln1.end.conPoint(ln2.end)
+
 
 def trapezoid(parralelDis, leftLen, rightLen, isosolese=True):
     [top, right, bottom, left] = loop(4)
@@ -67,6 +67,7 @@ def trapezoid(parralelDis, leftLen, rightLen, isosolese=True):
         conEq(left, right)
 
     return [top, right, bottom, left]
+
 
 # trapezoid(5,1,2)
 

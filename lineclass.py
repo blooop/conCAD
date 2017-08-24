@@ -12,8 +12,9 @@ import Sketcher
 lines = dict()
 loops = []
 
+
 class ln:
-    def __init__(self, start=None, end=None, dis=None, construction=False,defineOrigin = False):
+    def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
         if not defineOrigin:
             self.start = start or pointclass.pt()
             self.end = end or pointclass.pt()
@@ -47,14 +48,15 @@ class ln:
     def conVert(self):
         sk().addConstraint(Sketcher.Constraint('Vertical', self.id))
 
-    def conAng(self, line1,angle):
-        tmp = sk().addConstraint(Sketcher.Constraint('Angle',self.id,1,line1.id,1,angle))
-        sk().setDatum(tmp, App.Units.Quantity(str(angle)+' deg'))
+    def conAng(self, line1, angle):
+        tmp = sk().addConstraint(Sketcher.Constraint('Angle', self.id, 1, line1.id, 1, angle))
+        sk().setDatum(tmp, App.Units.Quantity(str(angle) + ' deg'))
 
-    def conEq(self,line1):
+    def conEq(self, line1):
         sk().addConstraint(Sketcher.Constraint('Equal', self.id, line1.id))
 
-def polyLine(pointsList,distances=None,angles= None, closeLoop=False, construction=False):
+
+def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
     lineIndices = []
     lineIndices.append(ln(pointsList[0], pointsList[1], construction=construction))
 
@@ -69,7 +71,7 @@ def polyLine(pointsList,distances=None,angles= None, closeLoop=False, constructi
         if not isinstance(distances, collections.Iterable):
             distanceDict[distances] = range(len(lineIndices))
             lineIndices[0].conLen(distances)
-            for i in range(1,len(lineIndices)):
+            for i in range(1, len(lineIndices)):
                 lineIndices[0].conEq(lineIndices[i])
         else:
             for i in range(len(distances)):
@@ -79,40 +81,44 @@ def polyLine(pointsList,distances=None,angles= None, closeLoop=False, constructi
                     distanceDict[distances[i]].append(i)
 
         for key, value in distanceDict.iteritems():
-            if len(value) >1:
+            if len(value) > 1:
                 lineIndices[value[0]].conLen(key)
-                for i in range(1,len(value)):
+                for i in range(1, len(value)):
                     lineIndices[value[0]].conEq(lineIndices[value[i]])
             else:
                 lineIndices[value[0]].conLen(key)
 
     if angles is not None:
         angles = makeSureIsList(angles, len(pointsList))
-        for i in range(len(lineIndices)-1):
-            lineIndices[i].conAng(lineIndices[i+1], angles[i])
+        for i in range(len(lineIndices) - 1):
+            lineIndices[i].conAng(lineIndices[i + 1], angles[i])
 
     return lineIndices
 
-def makeSureIsList(candidate,desiredLen):
+
+def makeSureIsList(candidate, desiredLen):
     if not isinstance(candidate, collections.Iterable):
-        candidate = [candidate]* desiredLen
+        candidate = [candidate] * desiredLen
     return candidate
 
-def loop(num,distances = None,angles = None, closed=True, construction=False):
+
+def loop(num, distances=None, angles=None, closed=True, construction=False):
     points = []
     if not closed:
-        num+=1
+        num += 1
     for i in range(num):
         points.append(pointclass.pt(a2v(PIB2 + lerp(i, 0.0, num, 0.0, PI2))))
-    loops.append(polyLine(points,distances,angles = angles, closeLoop=closed, construction=False))
+    loops.append(polyLine(points, distances, angles=angles, closeLoop=closed, construction=False))
     return loops[-1]
 
+
 def defineDatumAxes():
-        horAxis = ln(defineOrigin=True)
-        horAxis.id = -1
+    horAxis = ln(defineOrigin=True)
+    horAxis.id = -1
 
-        vertAxis = ln(defineOrigin=True)
-        vertAxis.id = -2
-        return horAxis,vertAxis
+    vertAxis = ln(defineOrigin=True)
+    vertAxis.id = -2
+    return horAxis, vertAxis
 
-[horAxis,vertAxis] = defineDatumAxes()
+
+[horAxis, vertAxis] = defineDatumAxes()

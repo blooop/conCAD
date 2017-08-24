@@ -5,7 +5,6 @@ from constraints import *
 from pointclass import *
 from lineclass import *
 from circleclass import *
-import patterns
+from patterns import *
 from operations import *
 from shapes import *
-
