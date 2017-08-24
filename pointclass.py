@@ -16,18 +16,24 @@ class pt:
 
     def conPoint(self, pnt):
         otherid = 1
-        if isinstance(pnt,circle):
+        if isinstance(pnt,circleclass.circle):
             otherid = 3
         sk().addConstraint(Sketcher.Constraint('Coincident', self.id, 1, pnt.id, otherid))
 
     def lineTo(self, otherPoint=None, dis=None):
-        tmp = ln(self, otherPoint, dis)
+        tmp = lineclass.ln(self, otherPoint, dis)
         return tmp
 
     def conVert(self,point):
-        ln(self,point,construction=True).conVert()
+        lineclass.ln(self,point,construction=True).conVert()
 
     def conDis(self,point,dis):
         conId = sk().addConstraint(Sketcher.Constraint('Distance',  self.id,1,point.id,1, dis))
         sk().setDatum(conId,App.Units.Quantity(str(dis) +' mm'))
 
+def defineOriginPt():
+    origin = pt(defineOrigin = True)
+    origin.id = -1
+    return origin
+
+origin = defineOriginPt()

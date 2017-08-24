@@ -19,8 +19,8 @@ def line(start=None, end=None, construction=False, name=None):
 class ln:
     def __init__(self, start=None, end=None, dis=None, construction=False,defineOrigin = False):
         if not defineOrigin:
-            self.start = start or pt()
-            self.end = end or pt()
+            self.start = start or pointclass.pt()
+            self.end = end or pointclass.pt()
             self.id = sk().addGeometry(Part.Line(), construction)
             self._midpoint = None
 
@@ -32,7 +32,7 @@ class ln:
 
     def midpoint(self):
         if self._midpoint is None:
-            self._midpoint = pt()
+            self._midpoint = pointclass.pt()
             sk().addConstraint(Sketcher.Constraint('Symmetric', self.start.id, 1, self.end.id, 1, self._midpoint.id, 1))
         return self._midpoint
 
@@ -58,4 +58,13 @@ class ln:
 
     def conEq(self,line1):
         sk().addConstraint(Sketcher.Constraint('Equal', self.id, line1.id))
+        
+def defineDatumAxes():
+        horAxis = ln(defineOrigin=True)
+        horAxis.id = -1
 
+        vertAxis = ln(defineOrigin=True)
+        vertAxis.id = -2
+        return horAxis,vertAxis
+
+[horAxis,vertAxis] = defineDatumAxes()
