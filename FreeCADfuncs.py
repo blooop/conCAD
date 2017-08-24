@@ -15,7 +15,13 @@ from circle import *
 
 lines = dict()
 loops = []
-
+def addProjToSysPath(projName):
+    import os
+    import sys
+    path = os.path.realpath(__file__)
+    projectPath = path[:path.find(projName)]+projName
+    sys.path.append(projectPath)
+	
 def pattern(obj,vector,instances):
     output = []
 
