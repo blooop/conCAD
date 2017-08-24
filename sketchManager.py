@@ -10,6 +10,19 @@ import Draft, Part
 App = FreeCAD
 Gui = FreeCADGui
 
+def clearPythonSession():
+    import sys
+    # print sys.modules
+    # for i in sys.modules:
+    #	print i
+    toReload = ['libfunc.mathfuncs', 'pointclass', 'lineclass', 'circleclass', 'sketchManager', 'patterns', 'libfunc',
+                'v2d', 'constraints', 'shapes']
+
+    for s in toReload:
+        if s in sys.modules:
+            sys.modules['conCAD'].__dict__.clear()
+    import FreeCAD
+
 def createSketchIfNoneExist():
     FreeCADGui.activateWorkbench("SketcherWorkbench")
     #if App.activeDocument() is None:
