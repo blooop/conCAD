@@ -6,16 +6,6 @@ import pointclass
 import circleclass
 import Sketcher
 
-def line(start=None, end=None, construction=False, name=None):
-    if start is None:
-        start = randVec()
-    if end is None:
-        end = randVec()
-    id = sk().addGeometry(Part.Line(start, end), construction)
-    if name is not None:
-        lines[name] = id
-    return last()
-
 class ln:
     def __init__(self, start=None, end=None, dis=None, construction=False,defineOrigin = False):
         if not defineOrigin:
@@ -38,12 +28,12 @@ class ln:
 
     def conLen(self, dis):
         if dis is not None:
-            conDis(dis, self.id)
+            sk().addConstraint(Sketcher.Constraint('Distance', self.id, dis))
         else:
             print "cannot constrain length to None"
 
     def perp(self, line1):
-        conPerp(self.id, line1.id)
+        sk().addConstraint(Sketcher.Constraint('Perpendicular', self.id, line1.id))
 
     def conHor(self):
         sk().addConstraint(Sketcher.Constraint('Horizontal', self.id))
@@ -52,13 +42,12 @@ class ln:
         sk().addConstraint(Sketcher.Constraint('Vertical', self.id))
 
     def conAng(self, line1,angle):
-
         tmp = sk().addConstraint(Sketcher.Constraint('Angle',self.id,1,line1.id,1,angle))
         sk().setDatum(tmp, App.Units.Quantity(str(angle)+' deg'))
 
     def conEq(self,line1):
         sk().addConstraint(Sketcher.Constraint('Equal', self.id, line1.id))
-        
+
 def defineDatumAxes():
         horAxis = ln(defineOrigin=True)
         horAxis.id = -1

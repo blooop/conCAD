@@ -1,11 +1,10 @@
 from sketchManager import *
-#from constraints import *
+
 import constraints
 import pointclass
 import lineclass
 import Part
 import Sketcher
-
 
 
 class circle:
@@ -16,8 +15,11 @@ class circle:
         self.id = sk().addGeometry(Part.Circle(),construction)
         self.center = pointclass.pt()
         if self.rad is not None:
-            constraints.conRad(self.rad,self.id)
+            self.conRad(self.rad)
         # if pos is not None:
+
+    def conRad(self,rad):
+        sk().addConstraint(Sketcher.Constraint('Radius', self.id, self.rad))
 
     def conPoint(self,pnt):
         sk().addConstraint(Sketcher.Constraint('Coincident',self.id,3,pnt.id,1))
@@ -36,7 +38,8 @@ class circle:
             raise Exception("tangent must be a curve")
 
     def conEdgeDis(self,obj,dis):
-        constraints.conDis(obj,self.rad+dis)
+        sk().addConstraint(Sketcher.Constraint('Distance', self.id,self.rad+dis))
+        # constraints.conDis(obj,self.rad+dis)
 
         # pt1 = pt()
         # pt2 = pt(v(1,1))
