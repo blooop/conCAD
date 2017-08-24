@@ -1,14 +1,10 @@
-from FreeCADenvironment import *
-
 from libfunc.mathfuncs import *
 from sketchManager import *
 from v2d import *
 from constraints import *
-from pt import *
-from ln import *
-from circle import *
-
-
+from pointclass import *
+from lineclass import *
+from circleclass import *
 
 def pattern(obj,vector,instances):
     output = []
