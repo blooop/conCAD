@@ -1,7 +1,5 @@
 #from conCAD import *
 
-import collections
-
 from libfunc.mathfuncs import *
 from sketchManager import *
 from v2d import *
@@ -15,8 +13,6 @@ from circleclass import *
 #origin = defineOriginPt()
 #[horAxis,vertAxis] = defineDatumAxes()
 
-lines = dict()
-loops = []
 def addProjToSysPath(projName):
     import os
     import sys
@@ -24,75 +20,12 @@ def addProjToSysPath(projName):
     projectPath = path[:path.find(projName)]+projName
     sys.path.append(projectPath)
 
-
-
-
-def point(coords=None):
-    if coords is None:
-        coords = v()
-    return sk().addGeometry(Part.Point(coords))
-
-def polyLine(pointsList,distances=None,angles= None, closeLoop=False, construction=False):
-    lineIndices = []
-    lineIndices.append(ln(pointsList[0], pointsList[1], construction=construction))
-
-    for i in range(2, len(pointsList)):
-        lineIndices.append(lineIndices[-1].end.lineTo(pointsList[i]))
-    if closeLoop:
-        lineIndices.append(lineIndices[-1].end.lineTo(lineIndices[0].start))
-
-    if distances is not None:
-        distanceDict = dict()
-
-        if not isinstance(distances, collections.Iterable):
-            distanceDict[distances] = range(len(lineIndices))
-            lineIndices[0].conLen(distances)
-            for i in range(1,len(lineIndices)):
-                lineIndices[0].conEq(lineIndices[i])
-        else:
-            for i in range(len(distances)):
-                if not distances[i] in distanceDict:
-                    distanceDict[distances[i]] = [i]
-                else:
-                    distanceDict[distances[i]].append(i)
-
-        for key, value in distanceDict.iteritems():
-            if len(value) >1:
-                lineIndices[value[0]].conLen(key)
-                for i in range(1,len(value)):
-                    lineIndices[value[0]].conEq(lineIndices[value[i]])
-            else:
-                lineIndices[value[0]].conLen(key)
-
-    if angles is not None:
-        angles = makeSureIsList(angles, len(pointsList))
-        for i in range(len(lineIndices)-1):
-            lineIndices[i].conAng(lineIndices[i+1], angles[i])
-
-    return lineIndices
-
 def applyProperty(objects,propertyItemOrList,func):
     propertyItemOrList = makeSureIsList(propertyItemOrList, len(objects))
     if propertyItemOrList is not None:
         for i in range(len(objects)):
             objects[i] = func(objects[i],propertyItemOrList[i])
-    return objects
-
-def makeSureIsList(candidate,desiredLen):
-    if not isinstance(candidate, collections.Iterable):
-        candidate = [candidate]* desiredLen
-    return candidate
-
-def loop(num,distances = None,angles = None, closed=True, construction=False):
-    points = []
-    if not closed:
-        num+=1
-    for i in range(num):
-        points.append(pt(a2v(PIB2 + lerp(i, 0.0, num, 0.0, PI2))))
-    loops.append(polyLine(points,distances,angles = angles, closeLoop=closed, construction=False))
-    return loops[-1]
-
-
+    return objectsf
 
 def fillet(rad, obj1=None, obj2=None):
     if obj1 is None:
@@ -100,7 +33,6 @@ def fillet(rad, obj1=None, obj2=None):
     if obj2 is None:
         obj2 = last()
     sk().fillet(obj1, obj2, rad)
-
 
 def filletTri(sideLen):
     line(v(0, 1), v(2, 3))
@@ -129,10 +61,6 @@ def filletTri(sideLen):
     conDis(sideLen, 0)
 
 
-def display():
-    App.activeDocument().recompute()
-    Gui.SendMsgToActiveView("ViewFit")
-
 
 def antenna():
     spoke = ln(dis=2)
@@ -145,7 +73,6 @@ def antenna():
     ln1 = rim.start.lineTo(dis=1.5)
     ln2 = rim.end.lineTo(dis=1.5)
     ln1.end.conPoint(ln2.end)
-
 
 def trapezoid(parralelDis, leftLen, rightLen, isosolese=True):
     [top, right, bottom, left] = loop(4)
@@ -166,7 +93,6 @@ def trapezoid(parralelDis, leftLen, rightLen, isosolese=True):
         conEq(left, right)
 
     return [top, right, bottom, left]
-
 
 # trapezoid(5,1,2)
 

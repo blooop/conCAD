@@ -1,10 +1,16 @@
 from sketchManager import *
 from constraints import *
+
+import collections
+
 from v2d import *
 
 import pointclass
 import circleclass
 import Sketcher
+
+lines = dict()
+loops = []
 
 class ln:
     def __init__(self, start=None, end=None, dis=None, construction=False,defineOrigin = False):
@@ -47,6 +53,59 @@ class ln:
 
     def conEq(self,line1):
         sk().addConstraint(Sketcher.Constraint('Equal', self.id, line1.id))
+
+def polyLine(pointsList,distances=None,angles= None, closeLoop=False, construction=False):
+    lineIndices = []
+    lineIndices.append(ln(pointsList[0], pointsList[1], construction=construction))
+
+    for i in range(2, len(pointsList)):
+        lineIndices.append(lineIndices[-1].end.lineTo(pointsList[i]))
+    if closeLoop:
+        lineIndices.append(lineIndices[-1].end.lineTo(lineIndices[0].start))
+
+    if distances is not None:
+        distanceDict = dict()
+
+        if not isinstance(distances, collections.Iterable):
+            distanceDict[distances] = range(len(lineIndices))
+            lineIndices[0].conLen(distances)
+            for i in range(1,len(lineIndices)):
+                lineIndices[0].conEq(lineIndices[i])
+        else:
+            for i in range(len(distances)):
+                if not distances[i] in distanceDict:
+                    distanceDict[distances[i]] = [i]
+                else:
+                    distanceDict[distances[i]].append(i)
+
+        for key, value in distanceDict.iteritems():
+            if len(value) >1:
+                lineIndices[value[0]].conLen(key)
+                for i in range(1,len(value)):
+                    lineIndices[value[0]].conEq(lineIndices[value[i]])
+            else:
+                lineIndices[value[0]].conLen(key)
+
+    if angles is not None:
+        angles = makeSureIsList(angles, len(pointsList))
+        for i in range(len(lineIndices)-1):
+            lineIndices[i].conAng(lineIndices[i+1], angles[i])
+
+    return lineIndices
+
+def makeSureIsList(candidate,desiredLen):
+    if not isinstance(candidate, collections.Iterable):
+        candidate = [candidate]* desiredLen
+    return candidate
+
+def loop(num,distances = None,angles = None, closed=True, construction=False):
+    points = []
+    if not closed:
+        num+=1
+    for i in range(num):
+        points.append(pointclass.pt(a2v(PIB2 + lerp(i, 0.0, num, 0.0, PI2))))
+    loops.append(polyLine(points,distances,angles = angles, closeLoop=closed, construction=False))
+    return loops[-1]
 
 def defineDatumAxes():
         horAxis = ln(defineOrigin=True)

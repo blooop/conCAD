@@ -47,3 +47,7 @@ def last():
 
 def sk():
     return App.ActiveDocument.Sketch
+
+def display():
+    App.activeDocument().recompute()
+    Gui.SendMsgToActiveView("ViewFit")
