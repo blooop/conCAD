@@ -56,6 +56,8 @@ def clearDoc():
 def delGeometry(index):
     App.ActiveDocument.Sketch.delGeometry(index)
 
+def sketchConstraints(index):
+    return App.ActiveDocument.Sketch.Constraints[index]
 
 def clearAll():
     doc = App.ActiveDocument

@@ -7,27 +7,16 @@ from circleclass import *
 
 def pattern(obj, vector, instances):
     output = []
-    baseConstruction = ln(dis=vecLen(vector))
-    # construction = [baseConstruction]
-    # ln1 = ln(dis=2)
-    # ln1.start.conPoint(origin)
-    # ln1.conAng(horAxis, 0.3)
-    # for obj in objList:
+    #baseConstruction = ln()
     vlen = vecLen(vector)
-    if isinstance(obj, circle):
-        # obj.conPoint(baseConstruction.start)
-        print v2ad(vector)
-        # baseConstruction.conAng(horAxis,v2ad(vector))
-        #
-        # for i in range(instances-1):
-        #
-        # tmpln = ln(construction[-1].end,construction=True )
-        # construction[-1].conAng(tmpln,20)
-        # # output.append(circle(tmpln.start))
-        # tmpln.conEq(baseConstruction)
-        # construction.append(tmpln)
-
+    #print "here2"
+    # if isinstance(obj, circle):
+    #baseConstruction.conLen(vecLen(vector))
+    #obj.conPoint(baseConstruction.start)
+    #horAxis.conAng(baseConstruction,v2ad(vector))
         # output[-1]
+    #print "here1"
+    #print sketchConstraints(-1)
 
 
 def symmetric(items, axis):

@@ -17,7 +17,7 @@ class ln:
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
         if not defineOrigin:
             self.start = start or pointclass.pt()
-            self.end = end or pointclass.pt()
+            self.end = end or pointclass.pt(v(1,0))
             self.id = sk().addGeometry(Part.Line(), construction)
             self._midpoint = None
 

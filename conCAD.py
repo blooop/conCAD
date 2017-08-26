@@ -8,3 +8,5 @@ from circleclass import *
 from patterns import *
 from operations import *
 from shapes import *
+
+#import reimport
