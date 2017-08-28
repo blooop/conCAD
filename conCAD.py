@@ -8,5 +8,8 @@ from circleclass import *
 from patterns import *
 from operations import *
 from shapes import *
-
+from item import *
 #import reimport
+
+if __name__ == "__main__":
+    print 1

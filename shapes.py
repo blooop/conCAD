@@ -82,3 +82,34 @@ def trapOld():
     conDis(leftRad, left)
     conDis(rightRad, right)
     conDisAxis(linkLen, right, left, True)
+
+
+def circleTest():
+    lns = loop(3)
+    lns[0].start.conPoint(origin)
+    lns[0].conEq(lns[1])
+    lns[1].conEq(lns[2])
+    c = circle(2)
+
+    c.tangent(lns[0])
+    c.tangent(lns[1])
+    c.tangent(lns[2])
+
+
+#	c.conDis(lns[0],2)
+#	c.conDis(lns[1],2)
+#	c.conDis(lns[2],2)
+
+def sawTooth():
+    lns = loop(8, closed=False)
+    lns[0].start.conVert(lns[2].end)
+    lns[4].start.conVert(lns[6].end)
+    lns[2].start.conVert(lns[4].end)
+    for i in range(len(lns)):
+        if i % 2 == 0:
+            lns[i].conHor()
+        else:
+            lns[i].conVert()
+
+# lns[0].start
+

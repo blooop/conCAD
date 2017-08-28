@@ -13,12 +13,12 @@ def applyProperty(objects, propertyItemOrList, func):
     if propertyItemOrList is not None:
         for i in range(len(objects)):
             objects[i] = func(objects[i], propertyItemOrList[i])
-    return objectsf
-
+    return objects
 
 def fillet(rad, obj1=None, obj2=None):
-    if obj1 is None:
-        obj1 = last() - 1
-    if obj2 is None:
-        obj2 = last()
-    sk().fillet(obj1, obj2, rad)
+    print obj1.id
+    print obj2.id
+    return sk().fillet(obj1.id, obj2.id, rad)
+
+def fillet2(rad, obj1=None, obj2=None):
+    return sk().fillet(obj1, obj2, rad)
