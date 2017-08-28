@@ -6,28 +6,12 @@ import collections
 from v2d import *
 
 import pointclass
-import itemclass
+from itemclass import *
 import circleclass
 import Sketcher
 
 lines = dict()
 loops = []
-
-
-"""base class for all objects"""
-class baseitem(object):
-
-    globalCounter=0
-
-    def __init__(self):
-        #globalCounter+=1
-        self.uniqueID = self.globalCounter
-        self.children = []
-        self.parents = []
-
-    def tickChildren(self):
-        for child in self.children:
-            child.tickChildren()
 
 class ln(baseitem):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
@@ -46,7 +30,10 @@ class ln(baseitem):
             if dis is not None:
                 self.conLen(dis)
 
+            #self.nodes.append(self.start)
             sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
+            #self.start.nodes
+            #self.nodes.append(self.end)
             sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
 
     def midpoint(self):
