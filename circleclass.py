@@ -1,6 +1,6 @@
 from sketchManager import *
 
-import constraints
+import cons
 import pointclass
 import lineclass
 import Part

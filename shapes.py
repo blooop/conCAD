@@ -1,7 +1,7 @@
 from libfunc.mathfuncs import *
 from sketchManager import *
 from v2d import *
-from constraints import *
+from cons import *
 from pointclass import *
 from lineclass import *
 from circleclass import *
@@ -113,3 +113,37 @@ def sawTooth():
 
 # lns[0].start
 
+def MX12():
+    lns = loop(4, distances=[16, 50, 7, 50], angles=[-90, 90, 90], closed=False)
+    lns[0].start.conPoint(origin)
+    lns[0].conAng(vertAxis, 0)
+
+    c1 = circle(1)
+    c1.conDis(horAxis, 21)
+    c1.conDis(lns[0], 5)
+
+    # horAxis.conAng(ln1,45)
+    # ln1.conAng(horAxis, 45)
+
+    pattern(c1, v(8, 0), instances=5)
+
+
+# print lns[0].uniqueID
+# c1.conEdgeDis(lns[-1],2)
+# c1.conPoint(lns[-1].end)
+
+def fillet_triangle():
+    lns = loop(3)
+    lns[0].conLen(5)
+    lns[0].conAng(horAxis, -180)
+    lns[1].conEq(lns[0])
+    lns[2].conEq(lns[1])
+
+
+#	lns = list(map((lambda x: x.
+# lns[2].start.conPoint(origin)
+
+def test():
+    pt1 = pt(v(1, 1))
+    pt2 = pt(v(2, 2))
+    ln1 = ln(pt1, pt2)

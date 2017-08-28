@@ -2,6 +2,8 @@ from libfunc.mathfuncs import *
 from sketchManager import *
 import random
 
+globalcount =0
+
 def randVec(instances=1):
     if instances > 1:
         output = []

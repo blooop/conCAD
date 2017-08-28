@@ -1,11 +1,12 @@
 from sketchManager import *
-from constraints import *
+from cons import *
 
 import collections
 
 from v2d import *
 
 import pointclass
+import itemclass
 import circleclass
 import Sketcher
 
@@ -13,8 +14,29 @@ lines = dict()
 loops = []
 
 
-class ln:
+"""base class for all objects"""
+class baseitem(object):
+
+    globalCounter=0
+
+    def __init__(self):
+        #globalCounter+=1
+        self.uniqueID = self.globalCounter
+        self.children = []
+        self.parents = []
+
+    def tickChildren(self):
+        for child in self.children:
+            child.tickChildren()
+
+class ln(baseitem):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
+        #baseitem.__init__(self)
+        #print baseitem.globalCounter
+        #print baseitem.i
+        #print self.uniqueID
+        #print 2
+
         if not defineOrigin:
             self.start = start or pointclass.pt()
             self.end = end or pointclass.pt(v(1,0))

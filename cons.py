@@ -1,5 +1,12 @@
-# from sketchManager import *
-# import Sketcher
+from sketchManager import *
+import Sketcher
+
+def point2point(p1,p2):
+    sk().addConstraint(Sketcher.Constraint('Coincident', p1.id, 1, p2.id, 1))
+
+# def linestart2point(linestart,p1):
+
+
 #
 # def conDis(dis, obj=None):
 #     sk().addConstraint(Sketcher.Constraint('Distance', obj, dis))
