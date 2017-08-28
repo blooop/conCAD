@@ -1,11 +1,4 @@
-from libfunc.mathfuncs import *
-from sketchManager import *
-from v2d import *
-from cons import *
-from pointclass import *
 from lineclass import *
-from circleclass import *
-import patterns
 
 
 def applyProperty(objects, propertyItemOrList, func):

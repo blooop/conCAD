@@ -1,10 +1,9 @@
-from sketchManager import *
-
-import cons
-import pointclass
-import lineclass
 import Part
 import Sketcher
+
+import lineclass
+import pointclass
+from sketchManager import *
 
 
 class circle:

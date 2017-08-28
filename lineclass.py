@@ -6,8 +6,14 @@ import collections
 from v2d import *
 
 import pointclass
-from itemclass import *
 import circleclass
+
+reload(pointclass)
+#reload(circleclass)
+
+
+from itemclass import *
+
 import Sketcher
 
 lines = dict()
@@ -15,7 +21,7 @@ loops = []
 
 class ln(baseitem):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
-        #baseitem.__init__(self)
+        baseitem.__init__(self)
         #print baseitem.globalCounter
         #print baseitem.i
         #print self.uniqueID
@@ -30,10 +36,10 @@ class ln(baseitem):
             if dis is not None:
                 self.conLen(dis)
 
-            #self.nodes.append(self.start)
+            self.nodes.append(self.start)
             sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
-            #self.start.nodes
-            #self.nodes.append(self.end)
+
+            self.nodes.append(self.end)
             sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
 
     def midpoint(self):

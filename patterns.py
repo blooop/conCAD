@@ -1,8 +1,4 @@
-from sketchManager import *
-from v2d import *
-from pointclass import *
 from lineclass import *
-from circleclass import *
 
 
 def pattern(obj, vector, instances):

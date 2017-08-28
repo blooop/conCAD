@@ -4,9 +4,6 @@ sys.path.append('C:\Program Files\FreeCAD 0.16')
 
 import FreeCAD
 import FreeCADGui
-from PySide import QtGui
-import Sketcher
-import Draft, Part
 
 App = FreeCAD
 Gui = FreeCADGui
@@ -23,7 +20,7 @@ def clearPythonSession():
     for s in toReload:
         if s in sys.modules:
             sys.modules['conCAD'].__dict__.clear()
-    import FreeCAD
+
 
 runOnce = True
 
@@ -80,9 +77,7 @@ def sk():
 def display():
     App.activeDocument().recompute()
     Gui.SendMsgToActiveView("ViewFit")
-from libfunc.mathfuncs import *
-from sketchManager import *
-import random
+
 
 globalcount =0
 
@@ -118,14 +113,6 @@ class baseitem(object):
     def tickChildren(self):
         for child in self.children:
             child.tickChildren()
-
-from v2d import *
-
-
-
-import circleclass
-import lineclass
-from cons import *
 
 
 class pt:
@@ -163,24 +150,15 @@ def defineOriginPt():
 
 
 origin = defineOriginPt()
-from sketchManager import *
-from cons import *
 
-import collections
-
-from v2d import *
-
-import pointclass
 from itemclass import *
-import circleclass
-import Sketcher
 
 lines = dict()
 loops = []
 
 class ln(baseitem):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
-        #baseitem.__init__(self)
+        baseitem.__init__(self)
         #print baseitem.globalCounter
         #print baseitem.i
         #print self.uniqueID
@@ -195,10 +173,11 @@ class ln(baseitem):
             if dis is not None:
                 self.conLen(dis)
 
-            #self.nodes.append(self.start)
+            self.nodes.append(self.start)
             sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
             #self.start.nodes
-            #self.nodes.append(self.end)
+            self.nodes.append(self.end)
+            print "newline1"
             sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
 
     def midpoint(self):
@@ -296,13 +275,8 @@ def defineDatumAxes():
 
 
 [horAxis, vertAxis] = defineDatumAxes()
-from sketchManager import *
 
-import cons
-import pointclass
-import lineclass
 import Part
-import Sketcher
 
 
 class circle:
@@ -350,11 +324,8 @@ class circle:
         # sk().addConstraint(Sketcher.Constraint('PointOnObject', ln1.id,2, self.id))
         # ln1.end.
         # addConstraint(Sketcher.Constraint('PointOnObject', 14, 2, 11))
-from v2d import *
 
-import circleclass
-import lineclass
-from sketchManager import *
+
 import Sketcher
 
 def point2point(p1,p2):
@@ -448,13 +419,6 @@ def point2point(p1,p2):
 #
 # def symmetric(objects, axis):
 #     return 1from libfunc.mathfuncs import *
-from sketchManager import *
-from v2d import *
-from cons import *
-from pointclass import *
-from lineclass import *
-from circleclass import *
-import patterns
 
 
 def applyProperty(objects, propertyItemOrList, func):
@@ -471,11 +435,6 @@ def fillet(rad, obj1=None, obj2=None):
 
 def fillet2(rad, obj1=None, obj2=None):
     return sk().fillet(obj1, obj2, rad)
-from sketchManager import *
-from v2d import *
-from pointclass import *
-from lineclass import *
-from circleclass import *
 
 
 def pattern(obj, vector, instances):
@@ -494,14 +453,6 @@ def pattern(obj, vector, instances):
 
 def symmetric(items, axis):
     return 1
-from libfunc.mathfuncs import *
-from sketchManager import *
-from v2d import *
-from cons import *
-from pointclass import *
-from lineclass import *
-from circleclass import *
-import patterns
 
 
 def filletTri(sideLen):
@@ -643,13 +594,8 @@ def test():
     pt1 = pt(v(1, 1))
     pt2 = pt(v(2, 2))
     ln1 = ln(pt1,pt2)
-from libfunc.mathfuncs import *
-from sketchManager import *
-from v2d import *
-from cons import *
-from pointclass import *
-from lineclass import *
-from circleclass import *
+
+
 from patterns import *
 from operations import *
 from shapes import *

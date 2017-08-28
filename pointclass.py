@@ -1,9 +1,9 @@
-from v2d import *
-
-
-
 import circleclass
 import lineclass
+from v2d import *
+
+#reload(circleclass)
+reload(lineclass)
 from cons import *
 
 
