@@ -11,12 +11,7 @@ from shapes import *
 from itemclass import *
 #import reimport
 
-def main():
-    createSketchIfNoneExist()
-    clearConsole()
-    clearDoc()
-    test()
-    App.activeDocument().recompute()
+
 
 if __name__ == "__main__":
     print "asdf"
