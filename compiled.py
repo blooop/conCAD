@@ -151,12 +151,12 @@ def defineOriginPt():
 
 origin = defineOriginPt()
 
-from itemclass import *
+from nodeclass import *
 
 lines = dict()
 loops = []
 
-class ln(baseitem):
+class ln(Node):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
         baseitem.__init__(self)
         #print baseitem.globalCounter
@@ -599,6 +599,6 @@ def test():
 from patterns import *
 from operations import *
 from shapes import *
-from itemclass import *
+from nodeclass import *
 #import reimport
 

@@ -1,5 +1,8 @@
 """base class for all objects"""
-class baseitem(object):
+
+
+
+class Node(object):
 
     globalCounter=0
 

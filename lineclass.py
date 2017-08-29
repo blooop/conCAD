@@ -12,16 +12,16 @@ reload(pointclass)
 #reload(circleclass)
 
 
-from itemclass import *
+from nodeclass import *
 
 import Sketcher
 
 lines = dict()
 loops = []
 
-class ln(baseitem):
+class ln(Node):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
-        baseitem.__init__(self)
+        Node.__init__(self)
         #print baseitem.globalCounter
         #print baseitem.i
         #print self.uniqueID

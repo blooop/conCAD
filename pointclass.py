@@ -6,11 +6,11 @@ from v2d import *
 reload(lineclass)
 from cons import *
 
-from itemclass import *
+from nodeclass import *
 
-class pt(baseitem):
+class pt(Node):
     def __init__(self, pos=None, defineOrigin=False):
-        baseitem.__init__(self)
+        Node.__init__(self)
         if not defineOrigin:
             self.pos = pos or v()
             self.id = sk().addGeometry(Part.Point(self.pos))
