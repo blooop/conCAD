@@ -10,7 +10,7 @@ pt1 = pt(v(1, 1))
 pt2 = pt(v(2, 2))
 ln1 = ln(pt1,pt2)
 
-#lns = loop(3)
+lns = loop(3)
 
 def polyLine2(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
     lineIndices = []
@@ -60,7 +60,7 @@ def loop2(num, distances=None, angles=None, closed=True, construction=False):
     loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
     return loops[-1]
 
-lns =loop2(3)
+#lns =loop2(3)
 
 
 #exit()
