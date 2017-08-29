@@ -19,6 +19,9 @@ class pt(nodeclass.Node):
         self.pos = v(0, 0)
         self.id = -1
 
+    def subTraverse(self,result):
+        result.points.append(self)
+
     def conPoint(self, pnt):
         otherid = 1
         if isinstance(pnt, circleclass.circle):

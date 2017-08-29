@@ -45,6 +45,9 @@ class ln(nodeclass.Node):
             # self.nodes.append(self.end)
             # sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
 
+    def subTraverse(self,result):
+        result.lines.append(self)
+
     def midpoint(self):
         if self._midpoint is None:
             self._midpoint = pointclass.pt()

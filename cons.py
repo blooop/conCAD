@@ -3,18 +3,26 @@ import Sketcher
 
 import nodeclass
 
-class PointOnPoint(nodeclass.Node):
+class Constraint(nodeclass.Node):
+
+    def __init__(self):
+        nodeclass.Node.__init__(self)
+
+    def subTraverse(self,result):
+        result.constraints.append(self)
+
+class PointOnPoint(Constraint):
     def __init__(self,point1,point2):
         sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1, point2.id, 1))
 
-class PointOnLine(nodeclass.Node):
+class PointOnLine(Constraint):
     def __init__(self,point1,line1):
         sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1, point2.id, 1))
 
 
-class LineOnPoint(nodeclass.Node):
+class LineOnPoint(Constraint):
     def __init__(self,line1,point1,lineStartOrEnd):
-        nodeclass.Node.__init__(self)
+        Constraint.__init__(self)
         self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1,line1.id, lineStartOrEnd))
         self.nodes.append(line1)
         self.nodes.append(point1)

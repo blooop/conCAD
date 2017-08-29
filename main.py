@@ -28,6 +28,9 @@ for i in tree.allNodes:
 print "lines"
 print tree.lines
 
+print "points"
+print tree.points
+
 # sk().addConstraint(Sketcher.Constraint('Coincident', pt1.id, 1, ln1.end.id, 1))
 # sk().addConstraint(Sketcher.Constraint('Coincident', pt2.id, 1, ln1.start.id, 1))
 

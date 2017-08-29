@@ -1,12 +1,11 @@
 """base class for all objects"""
-# import pointclass
-# import lineclass
 
 class TraversalResult(object):
     def __init__(self):
         self.allNodes = dict()
         self.points = []
         self.lines = []
+        self.constraints = []
         self.a = 1
 
 
@@ -25,10 +24,11 @@ class Node(object):
         for node in self.nodes:
             if node not in result.allNodes:
                 result.allNodes[node] = node.id
-                # if isinstance(pointclass.pt):
-                #     result.points.append(node)
-                # if isinstance(lineclass.ln):
-                #     result.points.append(node)
+                node.subTraverse(result)
+                # # if isinstance(pointclass.pt):
+                # #     result.points.append(node)
+                # # if isinstance(lineclass.ln):
+                # #     result.points.append(node)
 
                 node.traverse(result)
 
