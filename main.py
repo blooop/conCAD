@@ -1,6 +1,6 @@
 from conCAD import *
 import collections
-
+import nodeclass
 #print "releaded"
 createSketchIfNoneExist()
 clearConsole()
@@ -12,8 +12,9 @@ ln1 = ln(pt1,pt2)
 
 lns = loop(3)
 
-tree = collections.OrderedDict()
+tree = nodeclass.TraversalResult()
 
+#print tree.allNodes
 # pt1.traverse(tree)
 
 lns[0].traverse(tree)
@@ -21,8 +22,11 @@ lns[0].traverse(tree)
 #print "tree:", tree
 
 print "tree"
-for i in tree:
+for i in tree.allNodes:
     print type(i), "id: ", i.id
+
+print "lines"
+print tree.lines
 
 # sk().addConstraint(Sketcher.Constraint('Coincident', pt1.id, 1, ln1.end.id, 1))
 # sk().addConstraint(Sketcher.Constraint('Coincident', pt2.id, 1, ln1.start.id, 1))

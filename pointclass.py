@@ -1,16 +1,16 @@
-import circleclass
-import lineclass
 from v2d import *
 
+import cons
+import nodeclass
+import circleclass
+import lineclass
+
 #reload(circleclass)
-reload(lineclass)
-from cons import *
+#reload(lineclass)
 
-from nodeclass import *
-
-class pt(Node):
+class pt(nodeclass.Node):
     def __init__(self, pos=None, defineOrigin=False):
-        Node.__init__(self)
+        nodeclass.Node.__init__(self)
         if not defineOrigin:
             self.pos = pos or v()
             self.id = sk().addGeometry(Part.Point(self.pos))

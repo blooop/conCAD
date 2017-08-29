@@ -1,27 +1,27 @@
 from sketchManager import *
-from cons import *
+
+
 
 import collections
 
 from v2d import *
 
 import pointclass
+import nodeclass
+import cons
 import circleclass
 
-reload(pointclass)
+#reload(pointclass)
 #reload(circleclass)
-
-
-from nodeclass import *
 
 import Sketcher
 
 lines = dict()
 loops = []
 
-class ln(Node):
+class ln(nodeclass.Node):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
-        Node.__init__(self)
+        nodeclass.Node.__init__(self)
         #print baseitem.globalCounter
         #print baseitem.i
         #print self.uniqueID
@@ -36,8 +36,8 @@ class ln(Node):
             if dis is not None:
                 self.conLen(dis)
 
-            LineOnPoint(self,self.end,1)
-            LineOnPoint(self,self.start,2)
+            cons.LineOnPoint(self,self.end,1)
+            cons.LineOnPoint(self,self.start,2)
 
             # self.nodes.append(self.start)
             # sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
