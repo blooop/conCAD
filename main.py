@@ -60,7 +60,7 @@ def loop2(num, distances=None, angles=None, closed=True, construction=False):
     loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
     return loops[-1]
 
-#lns =loop2(3)
+lns =loop2(3)
 
 
 #exit()
