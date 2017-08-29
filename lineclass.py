@@ -19,6 +19,8 @@ import Sketcher
 lines = dict()
 loops = []
 
+
+
 class ln(nodeclass.Node):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
         nodeclass.Node.__init__(self)
@@ -28,8 +30,8 @@ class ln(nodeclass.Node):
         #print 2
 
         if not defineOrigin:
-            self.start = start or pointclass.pt()
-            self.end = end or pointclass.pt(v(0,1))
+            self.start = start
+            self.end = end
             self.id = sk().addGeometry(Part.Line(), construction)
             self._midpoint = None
 

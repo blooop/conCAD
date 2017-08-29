@@ -2,6 +2,7 @@ from libfunc.mathfuncs import *
 from sketchManager import *
 import random
 
+
 globalcount =0
 
 def randVec(instances=1):
@@ -21,4 +22,5 @@ def a2v(angle):
 def a2vd(angle):
     angle *= deg2rad
     return v(math.cos(angle), math.sin(angle))
+
 

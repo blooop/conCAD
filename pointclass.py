@@ -8,6 +8,7 @@ import lineclass
 #reload(circleclass)
 #reload(lineclass)
 
+
 class pt(nodeclass.Node):
     def __init__(self, pos=None, defineOrigin=False):
         nodeclass.Node.__init__(self)
