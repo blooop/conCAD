@@ -1,10 +1,36 @@
 from sketchManager import *
 import Sketcher
 
+from itemclass import *
+
+class PointOnPoint(baseitem):
+    def __init__(self,point1,point2):
+        sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1, point2.id, 1))
+
+class PointOnLine(baseitem):
+    def __init__(self,point1,line1):
+        sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1, point2.id, 1))
+
+
+
+class LineStartOnPoint(baseitem):
+    def __init__(self,line1,point1):
+        self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1,line1.id, 1))
+        line1.nodes.append(self)
+        point1.nodes.append(self)
+
+class LineEndOnPoint(baseitem):
+    def __init__(self,line1,point1):
+        self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1,line1.id, 2))
+        line1.nodes.append(self)
+        point1.nodes.append(self)
+
 def point2point(p1,p2):
     sk().addConstraint(Sketcher.Constraint('Coincident', p1.id, 1, p2.id, 1))
 
-# def linestart2point(linestart,p1):
+def lineStartToPoint(linestart,point):
+    sk().addConstraint(Sketcher.Constraint('Coincident', linestart.id, 1, point, 1))
+    linestart.nodes.append()
 
 
 #
