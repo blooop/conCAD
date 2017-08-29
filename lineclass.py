@@ -36,11 +36,14 @@ class ln(baseitem):
             if dis is not None:
                 self.conLen(dis)
 
-            self.nodes.append(self.start)
-            sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
+            LineOnPoint(self,self.end,1)
+            LineOnPoint(self,self.start,2)
 
-            self.nodes.append(self.end)
-            sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
+            # self.nodes.append(self.start)
+            # sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
+            #
+            # self.nodes.append(self.end)
+            # sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
 
     def midpoint(self):
         if self._midpoint is None:

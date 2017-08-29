@@ -12,16 +12,12 @@ class PointOnLine(baseitem):
         sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1, point2.id, 1))
 
 
-
-class LineStartOnPoint(baseitem):
-    def __init__(self,line1,point1):
-        self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1,line1.id, 1))
-        line1.nodes.append(self)
-        point1.nodes.append(self)
-
-class LineEndOnPoint(baseitem):
-    def __init__(self,line1,point1):
-        self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1,line1.id, 2))
+class LineOnPoint(baseitem):
+    def __init__(self,line1,point1,lineStartOrEnd):
+        baseitem.__init__(self)
+        self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1,line1.id, lineStartOrEnd))
+        self.nodes.append(line1)
+        self.nodes.append(point1)
         line1.nodes.append(self)
         point1.nodes.append(self)
 

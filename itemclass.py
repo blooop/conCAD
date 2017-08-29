@@ -10,7 +10,12 @@ class baseitem(object):
         self.parents = []
         self.nodes = []
 
-    def tickChildren(self):
-        for child in self.children:
-            child.tickChildren()
+    def traverse(self,result):
+        print "allNodes", self.nodes
+        for node in self.nodes:
+            print "curNode: ", node
+            if node not in result:
+                result[node] =node.id
+                node.traverse(result)
+
 
