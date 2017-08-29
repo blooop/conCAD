@@ -29,15 +29,18 @@ class ln(nodeclass.Node):
 
         if not defineOrigin:
             self.start = start or pointclass.pt()
-            self.end = end or pointclass.pt(v(1,0))
+            self.end = end or pointclass.pt(v(0,1))
             self.id = sk().addGeometry(Part.Line(), construction)
             self._midpoint = None
 
             if dis is not None:
                 self.conLen(dis)
 
-            cons.LineOnPoint(self,self.end,1)
-            cons.LineOnPoint(self,self.start,2)
+            if self.start is not None:
+                cons.LineOnPoint(self, self.start, 1)
+            if self.end is not None:
+                cons.LineOnPoint(self,self.end,2)
+
 
             # self.nodes.append(self.start)
             # sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))

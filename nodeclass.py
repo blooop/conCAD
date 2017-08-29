@@ -20,16 +20,16 @@ class Node(object):
         self.parents = []
         self.nodes = []
 
-    def traverse(self,result):
-        for node in self.nodes:
-            if node not in result.allNodes:
-                result.allNodes[node] = node.id
-                node.subTraverse(result)
-                # # if isinstance(pointclass.pt):
-                # #     result.points.append(node)
-                # # if isinstance(lineclass.ln):
-                # #     result.points.append(node)
-
-                node.traverse(result)
+    def traverse(self,result = None,maxDepth=5000, depth = 0):
+        if result == None:
+            result = TraversalResult()
+        #print depth
+        if depth <= maxDepth:
+            for node in self.nodes:
+                if node not in result.allNodes:
+                    result.allNodes[node] = node.id
+                    node.subTraverse(result)
+                    node.traverse(result,maxDepth = maxDepth,depth= depth+1)
+        return result
 
 

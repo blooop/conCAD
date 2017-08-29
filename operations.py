@@ -15,3 +15,11 @@ def fillet(rad, obj1=None, obj2=None):
 
 def fillet2(rad, obj1=None, obj2=None):
     return sk().fillet(obj1, obj2, rad)
+
+def fillet3(point,rad):
+    trav = point.traverse(maxDepth=1)
+    print trav.lines[0].id
+    print trav.lines[1].id
+    print trav.points
+    return sk().fillet(trav.lines[0].id, trav.lines[1].id, rad)
+    #point.traverse(maxDepth=1).lines

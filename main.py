@@ -12,13 +12,17 @@ ln1 = ln(pt1,pt2)
 
 lns = loop(3)
 
-tree = nodeclass.TraversalResult()
 
 #print tree.allNodes
 # pt1.traverse(tree)
 
-lns[0].traverse(tree)
+tree = lns[0].traverse()
 
+t2 = lns[0].start.traverse(maxDepth=1)
+
+fillet3(lns[0].start,3)
+
+print "t2lines ", t2.lines
 #print "tree:", tree
 
 print "tree"
