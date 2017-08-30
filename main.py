@@ -44,23 +44,15 @@ import nodeclass
 reload(nodeclass)
 from nodeclass import *
 
-
-# from tpkgfolder import tpkgfile
-# reload(tpkgfile)
-# print "local"
-# t = tpkgfile.testpkg()
-
-import nodeclass
-#print "releaded"
 createSketchIfNoneExist()
 clearConsole()
 clearDoc()
 
 pt1 = pt(v(1, 1))
 pt2 = pt(v(2, 2))
-#ln1 = ln(pt1,pt2)
+ln1 = ln(pt1,pt2)
 
-#lns = loop(3)
+lns = loop(3)
 
 def polyLine2(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
     lineIndices = []
