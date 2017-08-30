@@ -48,11 +48,10 @@ createSketchIfNoneExist()
 clearConsole()
 clearDoc()
 
-pt1 = pt(v(1, 1))
-pt2 = pt(v(2, 2))
-ln1 = ln(pt1,pt2)
 
-lns = loop(3)
+
+
+#lns = loop(3)
 
 def polyLine2(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
     lineIndices = []
@@ -101,6 +100,14 @@ def loop2(num, distances=None, angles=None, closed=True, construction=False):
         points.append(a2v(PIB2 + lerp(i, 0.0, num, 0.0, PI2)))
     loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
     return loops[-1]
+
+pt1 = pt(v(1, 1))
+pt2 = pt(v(2, 2))
+ln1 = ln(pt1,pt2)
+
+#  #pt(v(1,0))
+# ln(pt(v(1,0)))
+#ln()
 
 #lns =loop2(3)
 

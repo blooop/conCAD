@@ -33,8 +33,12 @@ class ln(nodeclass.Node):
 
             if self.start is not None:
                 cons.LineOnPoint(self, self.start, 1)
+            else:
+                self.start = pointclass.pt.lineStart(self)
             if self.end is not None:
                 cons.LineOnPoint(self,self.end,2)
+            else:
+                self.end = pointclass.pt.lineEnd(self)
 
 
             # self.nodes.append(self.start)

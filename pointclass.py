@@ -11,29 +11,38 @@ import lineclass
 class pt(nodeclass.Node):
     def __init__(self, pos=None, defineOrigin=False):
         super(pt, self).__init__()
-        self.pntType = 0
+        self.pntType = 1
         if not defineOrigin:
             self.pos = pos or v()
             self.id = sk().addGeometry(Part.Point(self.pos))
 
-    def vertex(self,pos):
-        self.id = sk().addGeometry(Part.Point(self.pos))
 
+    def vertex(pos):
+        output = pt()
+        output.id = sk().addGeometry(Part.Point(self.pos))
+
+    @classmethod
     def lineStart(self,line1):
-        self.id = line1.id
-        self.pntType = 1
+        output = pt(defineOrigin = True)
+        output.id = line1.id
+        output.pntType = 1
 
-    def lineEnd(self,line1):
-        self.id = line1.id
-        self.pntType = 2
+    @classmethod
+    def lineEnd(self, line1):
+        output = pt(defineOrigin=True)
+        output.id = line1.id
+        output.pntType = 2
 
-    def arcCenter(self,arc1):
-        self.id = arc1.id
-        self.pntType = 3
+    def arcCenter(arc1):
+        output = pt(defineOrigin=True)
+        output.id = arc1.id
+        output.pntType = 3
 
-    def origin(self):
-        self.pos = v(0, 0)
-        self.id = -1
+    def origin():
+        output = pt(defineOrigin=True)
+        output.pos = v(0, 0)
+        output.id = -1
+        return output
 
     def subTraverse(self,result):
         result.points.append(self)
