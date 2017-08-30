@@ -10,7 +10,7 @@ import lineclass
 
 class pt(nodeclass.Node):
     def __init__(self, pos=None, defineOrigin=False):
-        nodeclass.Node.__init__(self)
+        super(pt, self).__init__()
         self.pntType = 0
         if not defineOrigin:
             self.pos = pos or v()

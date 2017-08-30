@@ -1,7 +1,5 @@
 from sketchManager import *
 
-
-
 import collections
 
 from v2d import *
@@ -11,19 +9,14 @@ import nodeclass
 import cons
 import circleclass
 
-#reload(pointclass)
-#reload(circleclass)
-
 import Sketcher
 
 lines = dict()
 loops = []
 
-
-
 class ln(nodeclass.Node):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
-        nodeclass.Node.__init__(self)
+        super(ln, self).__init__()
         #print baseitem.globalCounter
         #print baseitem.i
         #print self.uniqueID

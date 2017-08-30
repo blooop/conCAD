@@ -2,12 +2,9 @@ import FreeCAD
 from FreeCAD import Base
 import math, collections
 from PySide import QtGui, QtCore
+import FreeCADGui
 
-#import sys
-#sys.path.append('D:\Dropbox\src\Python\conCAD')
-##import conCAD as cc
-#from conCAD import *
-
-#execfile('D:\Dropbox\src\Python\conCAD\compileProject.py')
-#execfile('D:\Dropbox\src\Python\conCAD\compiled.py')
+import sys
+sys.path.append('D:\Dropbox\src\Python')
 execfile('D:\Dropbox\src\Python\conCAD\main.py')
+FreeCADGui.SendMsgToActiveView("ViewFit")

@@ -1,13 +1,54 @@
-from conCAD import *
 import collections
 
-import sys
-sys.path.append('D:\Dropbox\src\Python')
+import libfunc.mathfuncs
+reload(libfunc.mathfuncs)
+from libfunc.mathfuncs import *
 
-from tpkgfolder import tpkgfile
-reload(tpkgfile)
-print "local"
-t = tpkgfile.testpkg()
+import sketchManager
+reload(sketchManager)
+from sketchManager import *
+
+import v2d
+reload(v2d)
+from v2d import *
+
+import pointclass
+reload(pointclass)
+from pointclass import *
+
+import lineclass
+reload(lineclass)
+from lineclass import *
+
+import circleclass
+reload(circleclass)
+from circleclass import *
+
+import cons
+reload(cons)
+from cons import *
+
+import patterns
+reload(patterns)
+from patterns import *
+
+import operations
+reload(operations)
+from operations import *
+
+import shapes
+reload(shapes)
+from shapes import *
+
+import nodeclass
+reload(nodeclass)
+from nodeclass import *
+
+
+# from tpkgfolder import tpkgfile
+# reload(tpkgfile)
+# print "local"
+# t = tpkgfile.testpkg()
 
 import nodeclass
 #print "releaded"
@@ -17,9 +58,9 @@ clearDoc()
 
 pt1 = pt(v(1, 1))
 pt2 = pt(v(2, 2))
-ln1 = ln(pt1,pt2)
+#ln1 = ln(pt1,pt2)
 
-lns = loop(3)
+#lns = loop(3)
 
 def polyLine2(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
     lineIndices = []
