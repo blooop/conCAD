@@ -1,5 +1,14 @@
 from conCAD import *
 import collections
+
+import sys
+sys.path.append('D:\Dropbox\src\Python')
+
+from tpkgfolder import tpkgfile
+reload(tpkgfile)
+print "local"
+t = tpkgfile.testpkg()
+
 import nodeclass
 #print "releaded"
 createSketchIfNoneExist()
