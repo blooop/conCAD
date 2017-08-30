@@ -17,19 +17,21 @@ loops = []
 class ln(nodeclass.Node):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
         super(ln, self).__init__()
-        #print baseitem.globalCounter
-        #print baseitem.i
-        #print self.uniqueID
-        #print 2
 
         if not defineOrigin:
             self.start = start
             self.end = end
-            self.id = sk().addGeometry(Part.Line(), construction)
+            self.id = sk().addGeometry(Part.Line(v(0,0),v(1,0)), construction)
             self._midpoint = None
 
             if dis is not None:
                 self.conLen(dis)
+
+            #if self.start is None and self.end is None:
+                #self.start = pointclass.pt.lineStart(self)
+                #self.end = pointclass.pt.lineEnd(self)
+                #print self.id
+                #sk().movePoint(self.id,2,v(0,1))
 
             if self.start is not None:
                 cons.LineOnPoint(self, self.start, 1)
@@ -40,12 +42,6 @@ class ln(nodeclass.Node):
             else:
                 self.end = pointclass.pt.lineEnd(self)
 
-
-            # self.nodes.append(self.start)
-            # sk().addConstraint(Sketcher.Constraint('Coincident', self.start.id, 1, self.id, 1))
-            #
-            # self.nodes.append(self.end)
-            # sk().addConstraint(Sketcher.Constraint('Coincident', self.end.id, 1, self.id, 2))
 
     def subTraverse(self,result):
         result.lines.append(self)

@@ -102,9 +102,10 @@ def loop2(num, distances=None, angles=None, closed=True, construction=False):
     return loops[-1]
 
 pt1 = pt(v(1, 1))
-pt2 = pt(v(2, 2))
-ln1 = ln(pt1,pt2)
+#pt2 = pt(v(2, 2))
+ln1 = ln()
 
+#ln1.end.lineTo()
 #  #pt(v(1,0))
 # ln(pt(v(1,0)))
 #ln()
