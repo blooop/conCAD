@@ -21,26 +21,28 @@ class ln(nodeclass.Node):
         if not defineOrigin:
             self.start = start
             self.end = end
-            self.id = sk().addGeometry(Part.Line(v(0,0),v(1,0)), construction)
+            self.id = sk().addGeometry(Part.Line(v(0,0),v(1,1)), construction)
             self._midpoint = None
 
             if dis is not None:
                 self.conLen(dis)
 
-            #if self.start is None and self.end is None:
-                #self.start = pointclass.pt.lineStart(self)
-                #self.end = pointclass.pt.lineEnd(self)
-                #print self.id
-                #sk().movePoint(self.id,2,v(0,1))
-
-            if self.start is not None:
-                cons.LineOnPoint(self, self.start, 1)
-            else:
-                self.start = pointclass.pt.lineStart(self)
-            if self.end is not None:
-                cons.LineOnPoint(self,self.end,2)
-            else:
-                self.end = pointclass.pt.lineEnd(self)
+            # if self.start is None and self.end is None:
+            #     self.start = pointclass.pt.lineStart(self)
+            #     self.end = pointclass.pt.lineEnd(self)
+            #     print "id", self.id
+            #     print self.end
+            #     sk().movePoint(self.id,1,v(1,1))
+            # else:
+            #
+            #     if self.start is not None:
+            #         cons.LineOnPoint(self, self.start, 1)
+            #     else:
+            #         self.start = pointclass.pt.lineStart(self)
+            #     if self.end is not None:
+            #         cons.LineOnPoint(self,self.end,2)
+            #     else:
+            #         self.end = pointclass.pt.lineEnd(self)
 
 
     def subTraverse(self,result):

@@ -26,17 +26,20 @@ class pt(nodeclass.Node):
         output = pt(defineOrigin = True)
         output.id = line1.id
         output.pntType = 1
+        return output
 
     @classmethod
     def lineEnd(self, line1):
         output = pt(defineOrigin=True)
         output.id = line1.id
         output.pntType = 2
+        return output
 
     def arcCenter(arc1):
         output = pt(defineOrigin=True)
         output.id = arc1.id
         output.pntType = 3
+        return output
 
     def origin():
         output = pt(defineOrigin=True)
@@ -52,6 +55,10 @@ class pt(nodeclass.Node):
         if isinstance(pnt, circleclass.circle):
             otherid = 3
         sk().addConstraint(Sketcher.Constraint('Coincident', self.id, 1, pnt.id, otherid))
+
+    # def lineTo(self, otherPoint=None, dis=None):
+    #     tmp = lineclass.ln(self, otherPoint, dis)
+    #     return tmp
 
     def lineTo(self, otherPoint=None, dis=None):
         tmp = lineclass.ln(self, otherPoint, dis)
