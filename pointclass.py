@@ -35,12 +35,14 @@ class pt(nodeclass.Node):
         output.pntType = 2
         return output
 
+    @classmethod
     def arcCenter(arc1):
         output = pt(defineOrigin=True)
         output.id = arc1.id
         output.pntType = 3
         return output
 
+    @classmethod
     def origin():
         output = pt(defineOrigin=True)
         output.pos = v(0, 0)

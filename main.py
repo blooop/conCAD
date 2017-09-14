@@ -101,9 +101,12 @@ def loop2(num, distances=None, angles=None, closed=True, construction=False):
     loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
     return loops[-1]
 
-pt1 = pt(v(1, 1))
+#pt1 = pt(v(1, 1))
 #pt2 = pt(v(2, 2))
 ln1 = ln()
+ln2 = ln()
+
+ln1.end.conPoint(ln2.start)
 #print ln1.end
 # ln2 = ln1.end.lineTo(v(2,2))
 #ln1.end.lineTo()
