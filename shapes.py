@@ -2,33 +2,10 @@ from circleclass import *
 from lineclass import *
 from pointclass import *
 
-
-def filletTri(sideLen):
-    line(v(0, 1), v(2, 3))
-    conDis(100)
-    conHor()
-    line(v(2, 3), v(5, 6))
-    conEq()
-    conCoince()
-    line(v(5, 6), v(8, 9))
-    conEq()
-    conCoince()
-    conCoince(0, last(), 1, 2)
-
-    fillets = []
-    fillet(10.0, 0, 1)
-    fillets.append(last())
-    conRad(sideLen / 5.0)
-    fillet(10.0, 0, 2)
-    fillets.append(last())
-    # App.ActiveDocument.Sketch.addConstraint(Sketcher.Constraint('Radius',App.ActiveDocument.Sketch.GeometryCount-1,10))
-    fillet(10.0, 1, 2)
-    fillets.append(last())
-    for i in range(len(fillets) - 1):
-        sk().addConstraint(Sketcher.Constraint('Equal', fillets[i], fillets[i + 1]))
-    conCoince(-1, 5, 1, 3)
-    conDis(sideLen, 0)
-
+def fillet_triangle(sideLen):
+    lns = loop(3,sideLen)
+    # for i in range(len(lns)):
+    #     lns[i].start.fillet()
 
 def antenna():
     spoke = ln(dis=2)
@@ -123,16 +100,7 @@ def MX12():
     pattern(c1, v(8, 0), instances=5)
 
 
-# print lns[0].uniqueID
-# c1.conEdgeDis(lns[-1],2)
-# c1.conPoint(lns[-1].end)
 
-def fillet_triangle():
-    lns = loop(3)
-    lns[0].conLen(5)
-    lns[0].conAng(horAxis, -180)
-    lns[1].conEq(lns[0])
-    lns[2].conEq(lns[1])
 
 
 #	lns = list(map((lambda x: x.

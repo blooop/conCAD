@@ -88,45 +88,46 @@ class ln(nodeclass.Node):
 
 
 def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
-    lineIndices = []
+    lines = []
 
     if closeLoop:
         start = -1
-    for i in range(start, len(pointsList)-1):
-        lineIndices.append(ln(pointsList[i], pointsList[i+1]))
+    else:
+        start = 0
 
-    for i in range(start, len(pointsList) - 1):
-        lineIndices[i].end.conPoint(lineIndices[i+1].start)
+    iterator = range(start, len(pointsList)-1)
+
+    for i in iterator:
+        lines.append(ln(pointsList[i], pointsList[i+1]))
+
+    for i in iterator:
+        lines[i].end.conPoint(lines[i+1].start)
 
     if distances is not None:
         distanceDict = dict()
 
-        if not isinstance(distances, collections.Iterable):
-            distanceDict[distances] = range(len(lineIndices))
-            lineIndices[0].conLen(distances)
-            for i in range(1, len(lineIndices)):
-                lineIndices[0].conEq(lineIndices[i])
-        else:
-            for i in range(len(distances)):
-                if not distances[i] in distanceDict:
-                    distanceDict[distances[i]] = [i]
-                else:
-                    distanceDict[distances[i]].append(i)
+        distances = makeSureIsList(distances, len(lines))
 
+        for i in range(0,len(distances)):
+            if not distances[i] in distanceDict:
+                distanceDict[distances[i]] = [i]
+            else:
+                distanceDict[distances[i]].append(i)
+        print distanceDict
         for key, value in distanceDict.iteritems():
             if len(value) > 1:
-                lineIndices[value[0]].conLen(key)
+                lines[value[0]].conLen(key)
                 for i in range(1, len(value)):
-                    lineIndices[value[0]].conEq(lineIndices[value[i]])
+                    lines[value[0]].conEq(lines[value[i]])
             else:
-                lineIndices[value[0]].conLen(key)
+                lines[value[0]].conLen(key)
 
     if angles is not None:
         angles = makeSureIsList(angles, len(pointsList))
-        for i in range(len(lineIndices) - 1):
-            lineIndices[i].conAng(lineIndices[i + 1], angles[i])
+        for i in range(len(lines) - 1):
+            lines[i].conAng(lines[i + 1], angles[i])
 
-    return lineIndices
+    return lines
 
 def loop(num, distances=None, angles=None, closed=True, construction=False):
     points = []
@@ -143,9 +144,6 @@ def makeSureIsList(candidate, desiredLen):
     if not isinstance(candidate, collections.Iterable):
         candidate = [candidate] * desiredLen
     return candidate
-
-
-
 
 
 def defineDatumAxes():

@@ -62,7 +62,13 @@ clearDoc()
 #ln1.end.moveTo(v(2,1))
 #ln2 = ln1.end.lineTo()
 
-loop(6)
+loop(3,[1,2,2])
+
+loop(4,3)
+
+loop(5,1)
+
+#fillet_triangle(1)
 
 
 #ln1.lineTo()
@@ -77,7 +83,6 @@ loop(6)
 #ln()
 
 #lns =loop2(3)
-
 
 #exit()
 
