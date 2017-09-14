@@ -48,56 +48,7 @@ createSketchIfNoneExist()
 clearConsole()
 clearDoc()
 
-def polyLine2(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
-    lineIndices = []
 
-    if closeLoop:
-        start = -1
-    for i in range(start, len(pointsList)-1):
-        lineIndices.append(ln(pointsList[i], pointsList[i+1]))
-
-    for i in range(start, len(pointsList) - 1):
-        lineIndices[i].end.conPoint(lineIndices[i+1].start)
-
-    if distances is not None:
-        distanceDict = dict()
-
-        if not isinstance(distances, collections.Iterable):
-            distanceDict[distances] = range(len(lineIndices))
-            lineIndices[0].conLen(distances)
-            for i in range(1, len(lineIndices)):
-                lineIndices[0].conEq(lineIndices[i])
-        else:
-            for i in range(len(distances)):
-                if not distances[i] in distanceDict:
-                    distanceDict[distances[i]] = [i]
-                else:
-                    distanceDict[distances[i]].append(i)
-
-        for key, value in distanceDict.iteritems():
-            if len(value) > 1:
-                lineIndices[value[0]].conLen(key)
-                for i in range(1, len(value)):
-                    lineIndices[value[0]].conEq(lineIndices[value[i]])
-            else:
-                lineIndices[value[0]].conLen(key)
-
-    if angles is not None:
-        angles = makeSureIsList(angles, len(pointsList))
-        for i in range(len(lineIndices) - 1):
-            lineIndices[i].conAng(lineIndices[i + 1], angles[i])
-
-    return lineIndices
-
-def loop3(num, distances=None, angles=None, closed=True, construction=False):
-    points = []
-    if not closed:
-        num += 1
-    for i in range(num):
-        ang = PIB2 + lerp(i, 0.0, num, 0.0, PI2)
-        points.append(a2v(ang))
-    loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
-    return loops[-1]
 
         #append(
     #loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
@@ -111,7 +62,7 @@ def loop3(num, distances=None, angles=None, closed=True, construction=False):
 #ln1.end.moveTo(v(2,1))
 #ln2 = ln1.end.lineTo()
 
-loop3(6)
+loop(6)
 
 
 #ln1.lineTo()

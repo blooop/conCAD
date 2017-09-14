@@ -89,12 +89,14 @@ class ln(nodeclass.Node):
 
 def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
     lineIndices = []
-    lineIndices.append(ln(pointsList[0], pointsList[1], construction=construction))
 
-    for i in range(2, len(pointsList)):
-        lineIndices.append(lineIndices[-1].end.lineTo(pointsList[i]))
     if closeLoop:
-        lineIndices.append(lineIndices[-1].end.lineTo(lineIndices[0].start))
+        start = -1
+    for i in range(start, len(pointsList)-1):
+        lineIndices.append(ln(pointsList[i], pointsList[i+1]))
+
+    for i in range(start, len(pointsList) - 1):
+        lineIndices[i].end.conPoint(lineIndices[i+1].start)
 
     if distances is not None:
         distanceDict = dict()
@@ -126,6 +128,16 @@ def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construct
 
     return lineIndices
 
+def loop(num, distances=None, angles=None, closed=True, construction=False):
+    points = []
+    if not closed:
+        num += 1
+    for i in range(num):
+        ang = PIB2 + lerp(i, 0.0, num, 0.0, PI2)
+        points.append(a2v(ang))
+    loops.append(polyLine(points, distances, angles=angles, closeLoop=closed, construction=False))
+    return loops[-1]
+
 
 def makeSureIsList(candidate, desiredLen):
     if not isinstance(candidate, collections.Iterable):
@@ -133,14 +145,7 @@ def makeSureIsList(candidate, desiredLen):
     return candidate
 
 
-def loop(num, distances=None, angles=None, closed=True, construction=False):
-    points = []
-    if not closed:
-        num += 1
-    for i in range(num):
-        points.append(pointclass.pt(a2v(PIB2 + lerp(i, 0.0, num, 0.0, PI2))))
-    loops.append(polyLine(points, distances, angles=angles, closeLoop=closed, construction=False))
-    return loops[-1]
+
 
 
 def defineDatumAxes():
