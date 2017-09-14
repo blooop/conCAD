@@ -19,13 +19,25 @@ class ln(nodeclass.Node):
         super(ln, self).__init__()
 
         if not defineOrigin:
-            self.start = start
-            self.end = end
-            self.id = sk().addGeometry(Part.Line(v(0,0),v(1,1)), construction)
-            self._midpoint = None
 
-            if dis is not None:
-                self.conLen(dis)
+            if isinstance(start,pointclass.pt) or start is None:
+                self.start = start
+                startVec = v(0, 0)
+            else:
+                startVec = start
+                self.start = None
+
+            if isinstance(end,pointclass.pt) or end is None:
+                self.end = end
+                endVec = v(1, 1)
+            else:
+                endVec = end
+                self.end = None
+
+            #print startVec
+            #print endVec
+
+            self.id = sk().addGeometry(Part.Line(startVec,endVec), construction)
 
             if self.start is None and self.end is None:
                 self.start = pointclass.pt.lineStart(self)
@@ -40,6 +52,8 @@ class ln(nodeclass.Node):
                 else:
                     self.end = pointclass.pt.lineEnd(self)
 
+            if dis is not None:
+                self.conLen(dis)
 
     def subTraverse(self,result):
         result.lines.append(self)

@@ -48,19 +48,16 @@ createSketchIfNoneExist()
 clearConsole()
 clearDoc()
 
-
-
-
-#lns = loop(3)
-
 def polyLine2(pointsList, distances=None, angles=None, closeLoop=False, construction=False):
     lineIndices = []
-    lineIndices.append(ln(pointsList[0], pointsList[1], construction=construction))
 
-    for i in range(2, len(pointsList)):
-        lineIndices.append(lineIndices[-1].end.lineTo(pointsList[i]))
     if closeLoop:
-        lineIndices.append(lineIndices[-1].end.lineTo(lineIndices[0].start))
+        start = -1
+    for i in range(start, len(pointsList)-1):
+        lineIndices.append(ln(pointsList[i], pointsList[i+1]))
+
+    for i in range(start, len(pointsList) - 1):
+        lineIndices[i].end.conPoint(lineIndices[i+1].start)
 
     if distances is not None:
         distanceDict = dict()
@@ -92,21 +89,35 @@ def polyLine2(pointsList, distances=None, angles=None, closeLoop=False, construc
 
     return lineIndices
 
-def loop2(num, distances=None, angles=None, closed=True, construction=False):
+def loop3(num, distances=None, angles=None, closed=True, construction=False):
     points = []
     if not closed:
         num += 1
     for i in range(num):
-        points.append(a2v(PIB2 + lerp(i, 0.0, num, 0.0, PI2)))
+        ang = PIB2 + lerp(i, 0.0, num, 0.0, PI2)
+        points.append(a2v(ang))
     loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
     return loops[-1]
 
-#pt1 = pt(v(1, 1))
-#pt2 = pt(v(2, 2))
-ln1 = ln()
-ln2 = ln()
+        #append(
+    #loops.append(polyLine2(points, distances, angles=angles, closeLoop=closed, construction=False))
+    #return loops[-1]
 
-ln1.end.conPoint(ln2.start)
+#pt1 = pt(v(1, 1))
+#pt1.moveTo(v(1,2))
+#pt2 = pt(v(2, 2))
+#ln1 = ln(v(1,1), v(1,2))
+
+#ln1.end.moveTo(v(2,1))
+#ln2 = ln1.end.lineTo()
+
+loop3(6)
+
+
+#ln1.lineTo()
+#ln2 = ln()
+
+#ln1.end.conPoint(ln2.end)
 #print ln1.end
 # ln2 = ln1.end.lineTo(v(2,2))
 #ln1.end.lineTo()

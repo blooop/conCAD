@@ -17,7 +17,7 @@ def v(x=0, y=0):
     return App.Vector(x, y, 0)
 
 def a2v(angle):
-    return v(math.cos(angle), math.sin(angle)+10)
+    return v(math.cos(angle), math.sin(angle))
 
 def a2vd(angle):
     angle *= deg2rad

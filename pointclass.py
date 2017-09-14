@@ -53,17 +53,19 @@ class pt(nodeclass.Node):
         result.points.append(self)
 
     def conPoint(self, pnt):
-        otherid = 1
-        if isinstance(pnt, circleclass.circle):
-            otherid = 3
-        sk().addConstraint(Sketcher.Constraint('Coincident', self.id, 1, pnt.id, otherid))
+        sk().addConstraint(Sketcher.Constraint('Coincident', self.id, self.pntType, pnt.id, pnt.pntType))
 
     # def lineTo(self, otherPoint=None, dis=None):
     #     tmp = lineclass.ln(self, otherPoint, dis)
     #     return tmp
 
+    def moveTo(self,pos):
+        print self.id,self.pntType,pos
+        App.ActiveDocument.Sketch.movePoint(0, 1, App.Vector(0.576531, 0.717636, 0), 0)
+        #sk().movePoint(self.id,self.pntType,pos,0)
+
     def lineTo(self, otherPoint=None, dis=None):
-        tmp = lineclass.ln(self, otherPoint, dis)
+        tmp = lineclass.ln(start = self, end = otherPoint, dis= dis)
         return tmp
 
     def conVert(self, point):
