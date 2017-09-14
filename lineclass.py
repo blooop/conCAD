@@ -14,30 +14,31 @@ import Sketcher
 lines = dict()
 loops = []
 
+
 class ln(nodeclass.Node):
     def __init__(self, start=None, end=None, dis=None, construction=False, defineOrigin=False):
         super(ln, self).__init__()
 
         if not defineOrigin:
 
-            if isinstance(start,pointclass.pt) or start is None:
+            if isinstance(start, pointclass.pt) or start is None:
                 self.start = start
                 startVec = v(0, 0)
             else:
                 startVec = start
                 self.start = None
 
-            if isinstance(end,pointclass.pt) or end is None:
+            if isinstance(end, pointclass.pt) or end is None:
                 self.end = end
                 endVec = v(1, 1)
             else:
                 endVec = end
                 self.end = None
 
-            #print startVec
-            #print endVec
+            # print startVec
+            # print endVec
 
-            self.id = sk().addGeometry(Part.Line(startVec,endVec), construction)
+            self.id = sk().addGeometry(Part.Line(startVec, endVec), construction)
 
             if self.start is None and self.end is None:
                 self.start = pointclass.pt.lineStart(self)
@@ -48,14 +49,14 @@ class ln(nodeclass.Node):
                 else:
                     self.start = pointclass.pt.lineStart(self)
                 if self.end is not None:
-                    cons.LineOnPoint(self,self.end,2)
+                    cons.LineOnPoint(self, self.end, 2)
                 else:
                     self.end = pointclass.pt.lineEnd(self)
 
             if dis is not None:
                 self.conLen(dis)
 
-    def subTraverse(self,result):
+    def subTraverse(self, result):
         result.lines.append(self)
 
     def midpoint(self):
@@ -95,20 +96,20 @@ def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construct
     else:
         start = 0
 
-    iterator = range(start, len(pointsList)-1)
+    iterator = range(start, len(pointsList) - 1)
 
     for i in iterator:
-        lines.append(ln(pointsList[i], pointsList[i+1]))
+        lines.append(ln(pointsList[i], pointsList[i + 1]))
 
     for i in iterator:
-        lines[i].end.conPoint(lines[i+1].start)
+        lines[i].end.conPoint(lines[i + 1].start)
 
     if distances is not None:
         distanceDict = dict()
 
         distances = makeSureIsList(distances, len(lines))
 
-        for i in range(0,len(distances)):
+        for i in range(0, len(distances)):
             if not distances[i] in distanceDict:
                 distanceDict[distances[i]] = [i]
             else:
@@ -128,6 +129,7 @@ def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construct
             lines[i].conAng(lines[i + 1], angles[i])
 
     return lines
+
 
 def loop(num, distances=None, angles=None, closed=True, construction=False):
     points = []

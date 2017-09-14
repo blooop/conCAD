@@ -5,8 +5,9 @@ import nodeclass
 import circleclass
 import lineclass
 
-#reload(circleclass)
-#reload(lineclass)
+
+# reload(circleclass)
+# reload(lineclass)
 
 class pt(nodeclass.Node):
     def __init__(self, pos=None, defineOrigin=False):
@@ -16,14 +17,13 @@ class pt(nodeclass.Node):
             self.pos = pos or v()
             self.id = sk().addGeometry(Part.Point(self.pos))
 
-
     def vertex(pos):
         output = pt()
         output.id = sk().addGeometry(Part.Point(self.pos))
 
     @classmethod
-    def lineStart(self,line1):
-        output = pt(defineOrigin = True)
+    def lineStart(self, line1):
+        output = pt(defineOrigin=True)
         output.id = line1.id
         output.pntType = 1
         return output
@@ -49,7 +49,7 @@ class pt(nodeclass.Node):
         output.id = -1
         return output
 
-    def subTraverse(self,result):
+    def subTraverse(self, result):
         result.points.append(self)
 
     def conPoint(self, pnt):
@@ -59,13 +59,13 @@ class pt(nodeclass.Node):
     #     tmp = lineclass.ln(self, otherPoint, dis)
     #     return tmp
 
-    def moveTo(self,pos):
-        print self.id,self.pntType,pos
+    def moveTo(self, pos):
+        print self.id, self.pntType, pos
         App.ActiveDocument.Sketch.movePoint(0, 1, App.Vector(0.576531, 0.717636, 0), 0)
-        #sk().movePoint(self.id,self.pntType,pos,0)
+        # sk().movePoint(self.id,self.pntType,pos,0)
 
     def lineTo(self, otherPoint=None, dis=None):
-        tmp = lineclass.ln(start = self, end = otherPoint, dis= dis)
+        tmp = lineclass.ln(start=self, end=otherPoint, dis=dis)
         return tmp
 
     def conVert(self, point):
@@ -87,7 +87,7 @@ class pt1(nodeclass.Node):
         self.pos = v(0, 0)
         self.id = -1
 
-    def subTraverse(self,result):
+    def subTraverse(self, result):
         result.points.append(self)
 
     def conPoint(self, pnt):

@@ -25,7 +25,9 @@ def clearPythonSession():
             sys.modules['conCAD'].__dict__.clear()
     import FreeCAD
 
+
 runOnce = True
+
 
 def createSketchIfNoneExist():
     FreeCADGui.activateWorkbench("SketcherWorkbench")
@@ -67,14 +69,18 @@ def clearDoc():
 def delGeometry(index):
     App.ActiveDocument.Sketch.delGeometry(index)
 
+
 def sketchGeometry(index):
     return App.ActiveDocument.Sketch.Geometry[index]
+
 
 def sketchConstraints():
     return App.ActiveDocument.Sketch.Constraints
 
+
 def sketchConstraint(index):
     return App.ActiveDocument.Sketch.Constraints[index]
+
 
 def clearAll():
     doc = App.ActiveDocument

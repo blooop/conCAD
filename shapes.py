@@ -2,10 +2,12 @@ from circleclass import *
 from lineclass import *
 from pointclass import *
 
+
 def fillet_triangle(sideLen):
-    lns = loop(3,sideLen)
+    lns = loop(3, sideLen)
     # for i in range(len(lns)):
     #     lns[i].start.fillet()
+
 
 def antenna():
     spoke = ln(dis=2)
@@ -83,6 +85,7 @@ def sawTooth():
         else:
             lns[i].conVert()
 
+
 # lns[0].start
 
 def MX12():
@@ -100,13 +103,10 @@ def MX12():
     pattern(c1, v(8, 0), instances=5)
 
 
-
-
-
 #	lns = list(map((lambda x: x.
 # lns[2].start.conPoint(origin)
 
 def test():
     pt1 = pt(v(1, 1))
     pt2 = pt(v(2, 2))
-    ln1 = ln(pt1,pt2)
+    ln1 = ln(pt1, pt2)
