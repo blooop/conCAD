@@ -71,9 +71,22 @@ clearDoc()
 # ln1.end.moveTo(v(2,1))
 # ln2 = ln1.end.lineTo()
 
-loop(3, [None, 2, 2])
+#loop(3, [None, None, 2])
 
-# loop(4,[1,1,2,None])
+# for i in range(3,4):
+#     loop(i,1,360./i)
+
+lns = loop(4, 1)
+
+print lns[0].nodes
+print
+print lns[0].start.nodes
+print
+trav = lns[0].traverse()
+
+
+
+print trav.lines
 
 # loop(5,2)
 

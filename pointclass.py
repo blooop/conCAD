@@ -24,6 +24,7 @@ class pt(nodeclass.Node):
     @classmethod
     def lineStart(self, line1):
         output = pt(defineOrigin=True)
+        #output.link(line1)
         output.id = line1.id
         output.pntType = 1
         return output
@@ -31,13 +32,15 @@ class pt(nodeclass.Node):
     @classmethod
     def lineEnd(self, line1):
         output = pt(defineOrigin=True)
+        output.link(line1)
         output.id = line1.id
         output.pntType = 2
         return output
 
     @classmethod
-    def arcCenter(arc1):
+    def arcCenter(self,arc1):
         output = pt(defineOrigin=True)
+        output.link(arc1)
         output.id = arc1.id
         output.pntType = 3
         return output
@@ -49,7 +52,12 @@ class pt(nodeclass.Node):
         output.id = -1
         return output
 
+    @classmethod
+    def isPoint(self, testPoint):
+        return isinstance(testPoint,pt)
+
     def subTraverse(self, result):
+        print "pt:",self.id," type:",self.pntType
         result.points.append(self)
 
     def conPoint(self, pnt):

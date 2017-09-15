@@ -21,42 +21,35 @@ class ln(nodeclass.Node):
 
         if not defineOrigin:
 
-            if isinstance(start, pointclass.pt) or start is None:
-                self.start = start
-                startVec = v(0, 0)
-            else:
+            if isinstance(start,App.Vector):
                 startVec = start
                 self.start = None
-
-            if isinstance(end, pointclass.pt) or end is None:
-                self.end = end
-                endVec = v(1, 1)
             else:
+                startVec = v(0, 0)
+                self.start = start
+
+            if isinstance(end, App.Vector):
                 endVec = end
                 self.end = None
-
-            # print startVec
-            # print endVec
+            else:
+                endVec = v(0, 0)
+                self.end = end
 
             self.id = sk().addGeometry(Part.Line(startVec, endVec), construction)
 
-            if self.start is None and self.end is None:
+            if self.start is None:
                 self.start = pointclass.pt.lineStart(self)
+            cons.PointOnLine(self.start, self, 1)
+
+            if self.end is  None:
                 self.end = pointclass.pt.lineEnd(self)
-            else:
-                if self.start is not None:
-                    cons.LineOnPoint(self, self.start, 1)
-                else:
-                    self.start = pointclass.pt.lineStart(self)
-                if self.end is not None:
-                    cons.LineOnPoint(self, self.end, 2)
-                else:
-                    self.end = pointclass.pt.lineEnd(self)
+            cons.PointOnLine(self.end, self, 2)
 
             if dis is not None:
                 self.conLen(dis)
 
     def subTraverse(self, result):
+        print "ln:" ,self.id
         result.lines.append(self)
 
     def midpoint(self):
@@ -114,18 +107,17 @@ def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construct
                 distanceDict[distances[i]] = [i]
             else:
                 distanceDict[distances[i]].append(i)
-        print distanceDict
+        #print distanceDict
         for key, value in distanceDict.iteritems():
-            if len(value) > 1:
+            if key is not None:
                 lines[value[0]].conLen(key)
-                for i in range(1, len(value)):
-                    lines[value[0]].conEq(lines[value[i]])
-            else:
-                lines[value[0]].conLen(key)
+                if len(value) > 1:
+                    for i in range(1, len(value)):
+                        lines[value[0]].conEq(lines[value[i]])
 
     if angles is not None:
         angles = makeSureIsList(angles, len(pointsList))
-        for i in range(len(lines) - 1):
+        for i in iterator:
             lines[i].conAng(lines[i + 1], angles[i])
 
     return lines
