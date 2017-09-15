@@ -23,7 +23,8 @@ class PointOnPoint(Constraint):
 class PointOnLine(Constraint):
     def __init__(self, point1, line1,lineStartOrEnd):
         super(PointOnLine, self).__init__()
-        sk().addConstraint(Sketcher.Constraint('Coincident', line1.id, lineStartOrEnd, point1.id, point1.pntType))
+        #sk().addConstraint(Sketcher.Constraint('Coincident', line1.id, lineStartOrEnd, point1.id, point1.pntType))
+        print "pointonline"
         self.link(point1)
         self.link(line1)
 

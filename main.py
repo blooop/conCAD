@@ -76,15 +76,13 @@ clearDoc()
 # for i in range(3,4):
 #     loop(i,1,360./i)
 
-lns = loop(4, 1)
+lns = loop(3, 1)
 
 print lns[0].nodes
 print
 print lns[0].start.nodes
 print
 trav = lns[0].traverse()
-
-
 
 print trav.lines
 

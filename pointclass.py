@@ -24,7 +24,6 @@ class pt(nodeclass.Node):
     @classmethod
     def lineStart(self, line1):
         output = pt(defineOrigin=True)
-        #output.link(line1)
         output.id = line1.id
         output.pntType = 1
         return output
@@ -32,7 +31,6 @@ class pt(nodeclass.Node):
     @classmethod
     def lineEnd(self, line1):
         output = pt(defineOrigin=True)
-        output.link(line1)
         output.id = line1.id
         output.pntType = 2
         return output
@@ -40,7 +38,6 @@ class pt(nodeclass.Node):
     @classmethod
     def arcCenter(self,arc1):
         output = pt(defineOrigin=True)
-        output.link(arc1)
         output.id = arc1.id
         output.pntType = 3
         return output
