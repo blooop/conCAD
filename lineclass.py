@@ -49,8 +49,12 @@ class ln(nodeclass.Node):
                 self.conLen(dis)
 
     def subTraverse(self, result):
-        print "ln:" ,self.id
         result.lines.append(self)
+
+        if not ln in result.all:
+            result.all[ln] = set()
+        result.all[ln].add(self)
+
 
     def midpoint(self):
         if self._midpoint is None:
@@ -79,6 +83,9 @@ class ln(nodeclass.Node):
 
     def conEq(self, line1):
         sk().addConstraint(Sketcher.Constraint('Equal', self.id, line1.id))
+
+    def __str__(self):
+        return "ln:" + str(self.id)
 
 
 def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construction=False):

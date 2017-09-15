@@ -84,7 +84,11 @@ print lns[0].start.nodes
 print
 trav = lns[0].traverse()
 
-print trav.lines
+print trav
+
+# print trav.lines
+# print
+# print trav.points
 
 # loop(5,2)
 

@@ -27,6 +27,9 @@ class PointOnLine(Constraint):
         self.link(point1)
         self.link(line1)
 
+    def __str__(self):
+        return "pointOnPoint" + str(id)
+
 class LineOnPoint(Constraint):
     def __init__(self, line1, point1, lineStartOrEnd):
         super(LineOnPoint, self).__init__()

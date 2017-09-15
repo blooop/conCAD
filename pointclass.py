@@ -54,8 +54,11 @@ class pt(nodeclass.Node):
         return isinstance(testPoint,pt)
 
     def subTraverse(self, result):
-        print "pt:",self.id," type:",self.pntType
+        #print self
         result.points.append(self)
+
+    def __str__(self):
+        return "pt:" + str(self.id) + " type:" +str( self.pntType)
 
     def conPoint(self, pnt):
         cons.PointOnPoint(self,pnt)

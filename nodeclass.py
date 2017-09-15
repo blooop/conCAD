@@ -8,6 +8,18 @@ class TraversalResult(object):
         self.lines = []
         self.constraints = []
         self.a = 1
+        self.all = dict()
+
+    def __str__(self):
+        output  = ""
+
+        for s in self.all:
+            output += str(s) + "\n"
+        # for p in self.points:
+        #     output+= str(p) + "\n"
+        # for l in self.lines:
+        #     output+= str(l) + "\n"
+        return output
 
 
 class Node(object):
