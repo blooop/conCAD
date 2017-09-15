@@ -95,7 +95,7 @@ def polyLine(pointsList, distances=None, angles=None, closeLoop=False, construct
         lines.append(ln(pointsList[i], pointsList[i + 1]))
 
     for i in iterator:
-        lines[i].end.conPoint(lines[i + 1].start)
+        cons.PointOnPoint(lines[i].end,lines[i+1].start)
 
     if distances is not None:
         distanceDict = dict()

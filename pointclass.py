@@ -58,7 +58,7 @@ class pt(nodeclass.Node):
         result.points.append(self)
 
     def conPoint(self, pnt):
-        sk().addConstraint(Sketcher.Constraint('Coincident', self.id, self.pntType, pnt.id, pnt.pntType))
+        cons.PointOnPoint(self,pnt)
 
     # def lineTo(self, otherPoint=None, dis=None):
     #     tmp = lineclass.ln(self, otherPoint, dis)

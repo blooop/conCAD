@@ -15,23 +15,22 @@ class Constraint(nodeclass.Node):
 class PointOnPoint(Constraint):
     def __init__(self, point1, point2):
         super(PointOnPoint, self).__init__()
+        sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, point1.pntType, point2.id, point2.pntType))
         self.link(point1)
         self.link(point2)
-        sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, 1, point2.id, 1))
 
 
 class PointOnLine(Constraint):
     def __init__(self, point1, line1,lineStartOrEnd):
         super(PointOnLine, self).__init__()
         #sk().addConstraint(Sketcher.Constraint('Coincident', line1.id, lineStartOrEnd, point1.id, point1.pntType))
-        print "pointonline"
         self.link(point1)
         self.link(line1)
 
 class LineOnPoint(Constraint):
     def __init__(self, line1, point1, lineStartOrEnd):
         super(LineOnPoint, self).__init__()
-        self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, point1.pntType, line1.id, lineStartOrEnd))
+        #self.id = sk().addConstraint(Sketcher.Constraint('Coincident', point1.id, point1.pntType, line1.id, lineStartOrEnd))
         self.link(line1)
         self.link(point1)
 
